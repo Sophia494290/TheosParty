@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punktekarten für Theos Geburtstagsfeier</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f8ff;
+        }
+        .print-button {
+            display: block;
+            margin: 0 auto 20px;
+            padding: 10px 20px;
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .print-button:hover {
+            background-color: #0c7cd5;
+        }
+        .print-button i {
+            margin-right: 8px;
+        }
+        @media print {
+            .print-button {
+                display: none;
+            }
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1e90ff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .team-title {
+            text-align: center;
+            font-size: 24px;
+            margin: 20px 0;
+            font-weight: bold;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        .blue {
+            color: #1e90ff;
+            background-color: #e6f7ff;
+            border: 2px solid #1e90ff;
+        }
+        .green {
+            color: #2e8b57;
+            background-color: #e6fff7;
+            border: 2px solid #2e8b57;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #add8e6;
+            padding: 12px;
+            text-align: left;
+        }
+        .blue-table th {
+            background-color: #1e90ff;
+            color: white;
+            font-weight: bold;
+        }
+        .green-table th {
+            background-color: #2e8b57;
+            color: white;
+            font-weight: bold;
+        }
+        .game-icon {
+            font-size: 24px;
+            text-align: center;
+            width: 50px;
+        }
+        .blue-table .game-icon {
+            color: #1e90ff;
+        }
+        .green-table .game-icon {
+            color: #2e8b57;
+        }
+        .game-name {
+            font-weight: bold;
+        }
+        .blue-table .game-name {
+            color: #4682b4;
+        }
+        .green-table .game-name {
+            color: #3cb371;
+        }
+        .checkbox-cell {
+            text-align: center;
+            width: 80px;
+        }
+        .points-cell {
+            text-align: center;
+            width: 80px;
+        }
+        .checkbox {
+            width: 20px;
+            height: 20px;
+        }
+        .points-input {
+            width: 50px;
+            height: 30px;
+            text-align: center;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+        .blue-table .points-input {
+            border: 1px solid #add8e6;
+        }
+        .green-table .points-input {
+            border: 1px solid #8fbc8f;
+        }
+        .total-row {
+            font-weight: bold;
+        }
+        .blue-table .total-row {
+            background-color: #e6f7ff;
+        }
+        .green-table .total-row {
+            background-color: #e6fff7;
+        }
+        .instructions {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        .blue-instructions {
+            background-color: #e6f7ff;
+        }
+        .green-instructions {
+            background-color: #e6fff7;
+        }
+        @media print {
+            body {
+                background-color: white;
+            }
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Punktekarten für Theos Geburtstagsfeier</h1>
+        
+        <button class="print-button" onclick="window.print()"><i class="fas fa-print"></i>Drucken</button>
+        
+        <div class="team-title blue">🪼 Team Blaue Quallen 🪼</div>
+        
+        <div class="instructions blue-instructions">
+            <p><strong>Anleitung:</strong> Hake jedes absolvierte Spiel ab und trage die erreichten Punkte ein. Am Ende werden die Punkte zusammengezählt.</p>
+        </div>
+        
+        <table class="blue-table">
+            <tr>
+                <th>Icon</th>
+                <th>Spiel</th>
+                <th>Erledigt</th>
+                <th>Punkte</th>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-flag"></i></td>
+                <td class="game-name">Team-Fahnen gestalten</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input blue-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-sailboat"></i></td>
+                <td class="game-name">Schiffswettrennen</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input blue-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-kiwi-bird"></i></td>
+                <td class="game-name">Enten angeln</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input blue-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-bullseye"></i></td>
+                <td class="game-name">Schalen versenken</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input blue-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-water"></i></td>
+                <td class="game-name">Staudamm bauen</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input blue-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-fill-drip"></i></td>
+                <td class="game-name">Wasser-Staffel</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input blue-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-basketball-ball"></i></td>
+                <td class="game-name">Unterwasser-Express</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input blue-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-spray-can"></i></td>
+                <td class="game-name">Wasserpistolen-Zielschießen</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input blue-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-tree"></i></td>
+                <td class="game-name">Freies Spiel / Sonstiges</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input blue-input" min="0" max="10"></td>
+            </tr>
+            <tr class="total-row">
+                <td colspan="2" style="text-align: right;">Gesamtpunktzahl:</td>
+                <td colspan="2" style="text-align: center;"><span id="blue-total-points">0</span></td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="container">
+        <div class="team-title green">🐸 Team Grüne Frösche 🐸</div>
+        
+        <div class="instructions green-instructions">
+            <p><strong>Anleitung:</strong> Hake jedes absolvierte Spiel ab und trage die erreichten Punkte ein. Am Ende werden die Punkte zusammengezählt.</p>
+        </div>
+        
+        <table class="green-table">
+            <tr>
+                <th>Icon</th>
+                <th>Spiel</th>
+                <th>Erledigt</th>
+                <th>Punkte</th>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-flag"></i></td>
+                <td class="game-name">Team-Fahnen gestalten</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input green-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-sailboat"></i></td>
+                <td class="game-name">Schiffswettrennen</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input green-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-kiwi-bird"></i></td>
+                <td class="game-name">Enten angeln</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input green-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-bullseye"></i></td>
+                <td class="game-name">Schalen versenken</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input green-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-water"></i></td>
+                <td class="game-name">Staudamm bauen</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input green-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-fill-drip"></i></td>
+                <td class="game-name">Wasser-Staffel</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input green-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-basketball-ball"></i></td>
+                <td class="game-name">Unterwasser-Express</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input green-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-spray-can"></i></td>
+                <td class="game-name">Wasserpistolen-Zielschießen</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input green-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-tree"></i></td>
+                <td class="game-name">Freies Spiel / Sonstiges</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input green-input" min="0" max="10"></td>
+            </tr>
+            <tr class="total-row">
+                <td colspan="2" style="text-align: right;">Gesamtpunktzahl:</td>
+                <td colspan="2" style="text-align: center;"><span id="green-total-points">0</span></td>
+            </tr>
+        </table>
+        
+        <div class="instructions" style="background-color: #f5f5f5;">
+            <p><strong>Hinweis:</strong> Beide Teams sind Gewinner! Die Punktzahl dient nur zur Motivation während der Spiele.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Berechnung der Gesamtpunktzahl für Team Blaue Quallen
+        const blueInputs = document.querySelectorAll('.blue-input');
+        const blueTotalPoints = document.getElementById('blue-total-points');
+        
+        blueInputs.forEach(input => {
+            input.addEventListener('change', calculateBlueTotal);
+        });
+        
+        function calculateBlueTotal() {
+            let total = 0;
+            blueInputs.forEach(input => {
+                total += parseInt(input.value) || 0;
+            });
+            blueTotalPoints.textContent = total;
+        }
+        
+        // Berechnung der Gesamtpunktzahl für Team Frösche
+        const greenInputs = document.querySelectorAll('.green-input');
+        const greenTotalPoints = document.getElementById('green-total-points');
+        
+        greenInputs.forEach(input => {
+            input.addEventListener('change', calculateGreenTotal);
+        });
+        
+        function calculateGreenTotal() {
+            let total = 0;
+            greenInputs.forEach(input => {
+                total += parseInt(input.value) || 0;
+            });
+            greenTotalPoints.textContent = total;
+        }
+    </script>
+</body>
+</html>

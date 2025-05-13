@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theos 7. Geburtstag</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --forest-green: #2e8b57;
+            --light-green: #8fbc8f;
+            --water-blue: #4682b4;
+            --light-blue: #add8e6;
+            --sand-color: #f5f5dc;
+            --wood-brown: #8b4513;
+            --light-brown: #deb887;
+        }
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--sand-color);
+            color: #333;
+            background-image: url('https://www.transparenttextures.com/patterns/little-pluses.png');
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(to right, var(--forest-green), var(--water-blue));
+            border-radius: 15px 15px 0 0;
+        }
+        
+        h1 {
+            color: var(--forest-green);
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            position: relative;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            right: 25%;
+            height: 3px;
+            background: linear-gradient(to right, var(--forest-green), var(--water-blue), var(--forest-green));
+            border-radius: 3px;
+        }
+        
+        h2 {
+            color: var(--wood-brown);
+            padding-bottom: 8px;
+            margin-top: 30px;
+            font-weight: 600;
+        }
+        
+        p {
+            line-height: 1.6;
+        }
+        
+        .section {
+            margin-bottom: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--light-green);
+        }
+        
+        .section:nth-child(odd) {
+            border-left-color: var(--light-green);
+        }
+        
+        .section:nth-child(even) {
+            border-left-color: var(--light-blue);
+        }
+        
+        .section-header {
+            background: linear-gradient(to right, rgba(143, 188, 143, 0.2), rgba(173, 216, 230, 0.2));
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .section-header:hover {
+            background: linear-gradient(to right, rgba(143, 188, 143, 0.3), rgba(173, 216, 230, 0.3));
+        }
+        .section-header h2 {
+            margin: 0;
+            border-bottom: none;
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            color: var(--wood-brown);
+        }
+        
+        .section-header h2 i {
+            margin-right: 15px;
+            color: var(--forest-green);
+            font-size: 22px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, rgba(143, 188, 143, 0.2), rgba(173, 216, 230, 0.2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .section-content {
+            padding: 20px;
+            background-color: white;
+        }
+        
+        .toggle-icon {
+            transition: transform 0.3s;
+            color: var(--water-blue);
+            font-size: 18px;
+        }
+        
+        .collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+        
+        .collapsed .section-content {
+            display: none;
+        }
+        
+        .highlight {
+            background-color: rgba(143, 188, 143, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid var(--forest-green);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        /* Materialliste */
+        .material-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .material-list li {
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(173, 216, 230, 0.5);
+            transition: all 0.2s ease;
+        }
+        
+        .material-list li:hover {
+            background-color: rgba(143, 188, 143, 0.05);
+            padding-left: 5px;
+        }
+        
+        .material-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .material-checkbox {
+            margin-right: 10px;
+            width: 16px;
+            height: 16px;
+            accent-color: var(--forest-green);
+        }
+        
+        .material-category {
+            font-weight: 600;
+            margin-top: 20px;
+            color: var(--forest-green);
+            padding: 5px 10px;
+            background-color: rgba(143, 188, 143, 0.1);
+            border-radius: 5px;
+            display: inline-block;
+        }
+        
+        /* Navigation */
+        .nav {
+            background: linear-gradient(135deg, var(--forest-green), var(--water-blue));
+            padding: 12px 0;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .nav ul {
+            display: flex;
+            justify-content: space-around;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+        }
+        
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .nav a:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* Modal für Spieldetails */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 25px;
+            border-radius: 15px;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            border-left: 5px solid var(--forest-green);
+        }
+        
+        .close {
+            color: var(--water-blue);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .close:hover {
+            color: var(--forest-green);
+            transform: rotate(90deg);
+        }
+        
+        /* Zeitplan */
+        .timeline {
+            margin-top: 25px;
+            position: relative;
+        }
+        
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--forest-green), var(--water-blue));
+            border-radius: 3px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .timeline-time {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--forest-green), var(--water-blue));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: bold;
+            z-index: 1;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-content {
+            background: linear-gradient(to right, rgba(143, 188, 143, 0.1), rgba(173, 216, 230, 0.1));
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        .timeline-content strong {
+            color: var(--wood-brown);
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        /* Kinderliste als Grid */
+        .kids-grid {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            gap: 8px;
+            margin-top: 20px;
+        }
+        
+        .kid-card {
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(143, 188, 143, 0.05), rgba(173, 216, 230, 0.05));
+            border-radius: 8px;
+            padding: 8px 5px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 12px;
+        }
+        
+        .kid-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(0,0,0,0.08);
+        }
+        
+        .avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--forest-green), var(--water-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 6px;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+        
+        .kid-checkbox {
+            margin-top: 6px;
+        }
+        
+        .kid-checkbox input {
+            width: 14px;
+            height: 14px;
+            cursor: pointer;
+            accent-color: var(--forest-green);
+        }
+        
+        .kid-number {
+            position: absolute;
+            background-color: var(--wood-brown);
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+            top: -3px;
+            left: -3px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        /* Spieleliste als Icons */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .game-card {
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(143, 188, 143, 0.1), rgba(173, 216, 230, 0.1));
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .game-icon {
+            font-size: 36px;
+            color: var(--water-blue);
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .game-card:hover .game-icon {
+            transform: scale(1.1);
+        }
+        
+        .game-name {
+            font-size: 15px;
+            color: var(--wood-brown);
+            font-weight: 500;
+        }
+        
+        /* Dateien-Bereich */
+        .files-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .file-card {
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(143, 188, 143, 0.1), rgba(173, 216, 230, 0.1));
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--light-green);
+        }
+        
+        .file-card:nth-child(odd) {
+            border-left-color: var(--light-green);
+        }
+        
+        .file-card:nth-child(even) {
+            border-left-color: var(--light-blue);
+        }
+        
+        .file-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .file-icon {
+            font-size: 36px;
+            color: var(--water-blue);
+            margin-bottom: 12px;
+        }
+        
+        .file-name {
+            font-size: 16px;
+            color: var(--wood-brown);
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--forest-green), var(--water-blue));
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        
+        .nav a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        /* Mobile Optimierung */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            h2 {
+                font-size: 20px;
+            }
+            .nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            .nav li {
+                margin-bottom: 8px;
+            }
+            .kids-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .games-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .files-grid {
+                grid-template-columns: 1fr;
+            }
+            .timeline-item {
+                padding-left: 40px;
+            }
+            .timeline-time {
+                width: 30px;
+                height: 30px;
+                font-size: 10px;
+            }
+            .timeline:before {
+                left: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .kids-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal-content {
+                margin: 20% auto;
+                padding: 15px;
+            }
+        }
+        
+        /* Dateien-Bereich */
+        .files-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .file-card {
+            text-align: center;
+            background-color: #e6f7ff;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .file-card:hover {
+            transform: translateY(-5px);
+            background-color: #d0ebff;
+        }
+        .file-icon {
+            font-size: 36px;
+            color: #1e90ff;
+            margin-bottom: 10px;
+        }
+        .file-name {
+            font-size: 14px;
+            color: #4682b4;
+            margin-bottom: 10px;
+        }
+        .download-btn {
+            display: inline-block;
+            background-color: #1e90ff;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        .download-btn:hover {
+            background-color: #0c7cd5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Theos 7. Geburtstag</h1>
+        
+        <div class="nav">
+            <ul>
+                <li><a href="#organisatorisches">Organisatorisches</a></li>
+                <li><a href="#kinder">Kinder</a></li>
+                <li><a href="#materialien">Materialien</a></li>
+                <li><a href="#spieleablauf">Spieleablauf</a></li>
+                <li><a href="#waldundwasserspiele">Wald- und Wasserspiele</a></li>
+                <li><a href="#dateien">Dateien</a></li>
+                <li><a href="#fotos">Fotos</a></li>
+            </ul>
+        </div>
+        
+        <div id="organisatorisches" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-info-circle"></i> Organisatorisches</h2>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="section-content">
+                <div class="highlight">
+                    <p><strong>Datum:</strong> 18. Mai 2025</p>
+                    <p><strong>Zeit:</strong> 11:00 - 16:00 Uhr</p>
+                    <p><strong>Ort:</strong> Heiligenhaus</p>
+                    <p><strong>Erwachsene:</strong> 4</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="kinder" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-child"></i> Eingeladene Kinder</h2>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="section-content">
+                <div class="kids-grid">
+                <div class="kid-card">
+                    <div class="kid-number">1</div>
+                    <div class="avatar"><i class="fas fa-crown"></i></div>
+                    <div>Theo</div>
+                    <div class="kid-checkbox">
+                        <input type="checkbox" id="kid-1">
+                    </div>
+                </div>
+                <div class="kid-card">
+                    <div class="kid-number">2</div>
+                    <div class="avatar">B</div>
+                    <div>Bruno</div>
+                    <div class="kid-checkbox">
+                        <input type="checkbox" id="kid-2">
+                    </div>
+                </div>
+                <div class="kid-card">
+                    <div class="kid-number">3</div>
+                    <div class="avatar">C</div>
+                    <div>Cara</div>
+                    <div class="kid-checkbox">
+                        <input type="checkbox" id="kid-3">
+                    </div>
+                </div>
+                <div class="kid-card">
+                    <div class="kid-number">4</div>
+                    <div class="avatar">E</div>
+                    <div>Emil</div>
+                    <div class="kid-checkbox">
+                        <input type="checkbox" id="kid-4">
+                    </div>
+                </div>
+                <div class="kid-card">
+                    <div class="kid-number">5</div>
+                    <div class="avatar">E</div>
+                    <div>Emirhan</div>
+                    <div class="kid-checkbox">
+                        <input type="checkbox" id="kid-5">
+                    </div>
+                </div>
+                <div class="kid-card">
+                    <div class="kid-number">6</div>
+                    <div class="avatar">F</div>
+                    <div>Freddy</div>
+                    <div class="kid-checkbox">
+                        <input type="checkbox" id="kid-6">
+                    </div>
+                </div>
+                <div class="kid-card">
+                    <div class="kid-number">7</div>
+                    <div class="avatar">L</div>
+                    <div>Leni</div>
+                    <div class="kid-checkbox">
+                        <input type="checkbox" id="kid-7">
+                    </div>
+                </div>
+                <div class="kid-card">
+                    <div class="kid-number">8</div>
+                    <div class="avatar">L</div>
+                    <div>Leon</div>
+                    <div class="kid-checkbox">
+                        <input type="checkbox" id="kid-8">
+                    </div>
+                </div>
+                <div class="kid-card">
+                    <div class="kid-number">9</div>
+                    <div class="avatar">L</div>
+                    <div>Lias</div>
+                    <div class="kid-checkbox">
+                        <input type="checkbox" id="kid-9">
+                    </div>
+                </div>
+                <div class="kid-card">
+                    <div class="kid-number">10</div>
+                    <div class="avatar">M</div>
+                    <div>Malea</div>
+                    <div class="kid-checkbox">
+                        <input type="checkbox" id="kid-10">
+                    </div>
+                </div>
+                <div class="kid-card">
+                    <div class="kid-number">11</div>
+                    <div class="avatar">M</div>
+                    <div>Max</div>
+                    <div class="kid-checkbox">
+                        <input type="checkbox" id="kid-11">
+                    </div>
+                </div>
+                <div class="kid-card">
+                    <div class="kid-number">12</div>
+                    <div class="avatar">M</div>
+                    <div>Mirali</div>
+                    <div class="kid-checkbox">
+                        <input type="checkbox" id="kid-12">
+                    </div>
+                </div>
+                <div class="kid-card">
+                    <div class="kid-number">13</div>
+                    <div class="avatar">N</div>
+                    <div>Nils</div>
+                    <div class="kid-checkbox">
+                        <input type="checkbox" id="kid-13">
+                    </div>
+                </div>
+                <div class="kid-card">
+                    <div class="kid-number">14</div>
+                    <div class="avatar">S</div>
+                    <div>Seyit</div>
+                    <div class="kid-checkbox">
+                        <input type="checkbox" id="kid-14">
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="materialien" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-shopping-basket"></i> Materialien</h2>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="section-content">
+                <ul class="material-list">
+                    <li class="material-category">Für Verpflegung:</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-16"> Picknickdecken / Küchentücher</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-17"> Wasser (mit und ohne Sprudel) + Becher</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-18"> Kuchen, Muffins, Obst, Kekse, Weingummi</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-19"> Servietten</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-20"> Hot Dogs (Würstchen, Brötchen, Ketchup, Senf), Pommes <em>(für zuhause)</em></li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-21"> Kindersekt <em>(für zuhause)</em></li>
+                    
+                    <li class="material-category">Für Teameinteilung & Fahnen:</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-1"> Säckchen mit 7 blauen und 7 grünen Armbändern für Teameinteilung</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-2"> 2 weiße Tücher und 2 lange Stöcke für Team-Fahnen</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-3"> Wasserfeste Stifte zum Bemalen der Fahnen, z.B. T-Shirt Marker</li>
+                
+                    <li class="material-category">Für Waldschatzsuche:</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-4"> 5-7 bunte Zip-Lock-Beutel (?)</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-5"> Kleine "Schätze" zum Verstecken (Süßigkeiten, kleine Spielzeuge)</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-6"> Schatzkarte mit Hinweisen und Bildern</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-7"> Bingo-Blätter (ausgedruckt) und Stifte</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-28"> 2 Sammelbeutel für Fundstücke</li>
+                    
+                    <li class="material-category">Für Wasserspiele:</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-8"> Schnitzmesser für Bootsanpassungen</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-9"> 5-8 Badetiere für Enten-Angeln</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-10"> 2 Käscher</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-11"> 2 Plastikschalen für Schalen-Versenken</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-12"> 2 kleine Becher und 2 Eimer für Wasser-Staffel</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-13"> 2 Bälle für Unterwasser-Express (1 pro Team)</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-14"> Geschenketüten inkl. Wasserpistolen (für jedes Kind eine)</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-15"> Leere Plastikflaschen als Zielscheiben für Wasserpistolen-Zielschießen</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-26"> Sonos-Box für Musik während der Spiele</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-27"> Wasserschuhe</li>
+                    
+                    <li class="material-category">Sonstiges:</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-23"> Kamera für Fotos</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-24"> Erste-Hilfe-Set</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-29"> Müllbeutel</li>
+                    <li><input type="checkbox" class="material-checkbox" id="material-25"> Handtücher und Wechselkleidung (falls Kinder sehr nass werden)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div id="spieleablauf" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-gamepad"></i> Spieleablauf</h2>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="section-content">
+                <h3>Grober Zeitplan</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-time">11:00</div>
+                    <div class="timeline-content">
+                        <strong>Ankommen</strong>
+                        <p>Begrüßung der Kinder, Theo packt Geschenke aus</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">11:30</div>
+                    <div class="timeline-content">
+                        <strong>Teameinteilung</strong>
+                        <p>Armbänder-Ziehen (Team Blaue Quallen & Team Grüne Frösche) und Ausdenken eines Teamruf</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">11:45</div>
+                    <div class="timeline-content">
+                        <strong>Waldschatzsuche</strong>
+                        <p>Spaziergang zum Paradies mit Schatzsuche und Sammel-Bingo</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">12:30</div>
+                    <div class="timeline-content">
+                        <strong>Ankommen am Paradies</strong>
+                        <p>Picknick und Stärkung</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">12:45</div>
+                    <div class="timeline-content">
+                        <strong>Wald- und Wasserspiele</strong>
+                        <p>Verschiedene Spiele am Bach und im Wald</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">14:00</div>
+                    <div class="timeline-content">
+                        <strong>Siegerehrung & Gruppenfoto</strong>
+                        <p>Beide Teams werden zu Siegern erklärt und bekommen Geschenketüten</p>
+                        <p>Gemeinsames Gruppenfoto zur Erinnerung</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">14:30</div>
+                    <div class="timeline-content">
+                        <strong>Rückkehr & Ausklang</strong>
+                        <p>Hot Dogs, Pommes und freies Spielen</p>
+                    </div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div id="waldundwasserspiele" class="section collapsed">
+            <div class="section-header">
+                <h2><i class="fas fa-water"></i> Wald- und Wasserspiele</h2>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="section-content">
+                <p>Klicke auf ein Spiel für Details:</p>
+                <div class="games-grid">
+                <div class="game-card" onclick="openGameModal('fahnen')">
+                    <div class="game-icon"><i class="fas fa-flag"></i></div>
+                    <div class="game-name">Team-Fahnen gestalten</div>
+                </div>
+                <div class="game-card" onclick="openGameModal('schiffe')">
+                    <div class="game-icon"><i class="fas fa-sailboat"></i></div>
+                    <div class="game-name">Schiffswettrennen</div>
+                </div>
+                <div class="game-card" onclick="openGameModal('enten')">
+                    <div class="game-icon"><i class="fas fa-kiwi-bird"></i></div>
+                    <div class="game-name">Enten angeln</div>
+                </div>
+                <div class="game-card" onclick="openGameModal('schalen')">
+                    <div class="game-icon"><i class="fas fa-bullseye"></i></div>
+                    <div class="game-name">Schalen versenken</div>
+                </div>
+                <div class="game-card" onclick="openGameModal('staudamm')">
+                    <div class="game-icon"><i class="fas fa-water"></i></div>
+                    <div class="game-name">Staudamm bauen</div>
+                </div>
+                <div class="game-card" onclick="openGameModal('staffel')">
+                    <div class="game-icon"><i class="fas fa-fill-drip"></i></div>
+                    <div class="game-name">Wasser-Staffel</div>
+                </div>
+                <div class="game-card" onclick="openGameModal('express')">
+                    <div class="game-icon"><i class="fas fa-basketball-ball"></i></div>
+                    <div class="game-name">Unterwasser-Express</div>
+                </div>
+                <div class="game-card" onclick="openGameModal('pistolen')">
+                    <div class="game-icon"><i class="fas fa-spray-can"></i></div>
+                    <div class="game-name">Wasserpistolen-Zielschießen</div>
+                </div>
+                <div class="game-card" onclick="openGameModal('freiesspiel')">
+                    <div class="game-icon"><i class="fas fa-tree"></i></div>
+                    <div class="game-name">Freies Spiel / Sonstiges</div>
+                </div>
+            </div>
+            </div>
+        </div>
+        
+        <!-- Modals für Spieldetails -->
+        <div id="fahnenModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('fahnenModal')">&times;</span>
+                <h3>Team-Fahnen gestalten</h3>
+                <p><strong>Material:</strong> 2 weiße Tücher, 2 lange Stöcke, Wasserfeste Stifte</p>
+                <p><strong>Durchführung:</strong> Jedes Team gestaltet eine eigene Fahne mit Teamnamen und allen Kindernamen. Die Fahnen werden später bei der Wasser-Staffel als Zielmarkierung verwendet.</p>
+                <p><strong>Dauer:</strong> ca. 15 Minuten</p>
+            </div>
+        </div>
+        
+        <div id="schiffeModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('schiffeModal')">&times;</span>
+                <h3>Schiffswettrennen</h3>
+                <p><strong>Material:</strong> Gesammelte Baumrinde, Stöcker, Blätter, Schnitzmesser</p>
+                <p><strong>Durchführung:</strong> Jedes Team baut aus den gesammelten Materialien ein Rindenschiff. Die Teams lassen ihre Schiffe im Bach gegeneinander fahren.</p>
+                <p><strong>Punktevergabe:</strong> 1 Punkt pro gewonnenes Rennen, Zusatzpunkt für besonders kreatives Schiffsdesign</p>
+                <p><strong>Dauer:</strong> ca. 20 Minuten</p>
+            </div>
+        </div>
+        
+        <div id="entenModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('entenModal')">&times;</span>
+                <h3>Enten angeln</h3>
+                <p><strong>Material:</strong> 5-8 Badetiere, 2 Käscher</p>
+                <p><strong>Durchführung:</strong> Badetiere werden ins seichte Wasser gesetzt. Ein Kind pro Team steht am Ziel mit Käscher, andere Teammitglieder scheuchen Tiere in Richtung Käscher.</p>
+                <p><strong>Punktevergabe:</strong> 1 Punkt pro geangeltes Tier, Bonuspunkt für das schnellste Team</p>
+                <p><strong>Dauer:</strong> ca. 15 Minuten</p>
+            </div>
+        </div>
+        
+        <div id="schalenModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('schalenModal')">&times;</span>
+                <h3>Schalen versenken</h3>
+                <p><strong>Material:</strong> 2 Plastikschalen, Gesammelte Steine (normal groß, nicht zu groß!)</p>
+                <p><strong>Durchführung:</strong> Plastikschalen schwimmen im seichten Wasser. Kinder bauen eine kleine Steinmauer um die Schalen, damit sie nicht wegtreiben. Kinder werfen abwechselnd Steine, um Schale zu treffen.</p>
+                <p><strong>Punktevergabe:</strong> 1 Punkt pro Runde für das Team, dessen Schale zuerst untergeht</p>
+                <p><strong>Dauer:</strong> ca. 15 Minuten</p>
+                <p><strong>Wichtiger Hinweis:</strong> Nur normal große Steine verwenden, keine zu großen Steine, da die Schalen sonst kaputt gehen könnten!</p>
+            </div>
+        </div>
+        
+        <div id="staudammModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('staudammModal')">&times;</span>
+                <h3>Staudamm bauen</h3>
+                <p><strong>Material:</strong> Steine, Äste, Blätter aus der Umgebung</p>
+                <p><strong>Durchführung:</strong> Jedes Team baut einen Staudamm an zugewiesener Stelle. Zeit: 15 Minuten zum Bauen.</p>
+                <p><strong>Punktevergabe (optional):</strong> Bewertung nach Höhe des aufgestauten Wassers, Bonuspunkte für Kreativität und Stabilität</p>
+                <p><strong>Dauer:</strong> ca. 20 Minuten</p>
+                <p><strong>Hinweis:</strong> Kann auch als freies Spiel ohne Wettbewerbscharakter durchgeführt werden</p>
+            </div>
+        </div>
+        
+        <div id="staffelModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('staffelModal')">&times;</span>
+                <h3>Wasser-Staffel</h3>
+                <p><strong>Material:</strong> 2 kleine Becher, 2 nicht zu große Eimer als Ziel, Team-Fahnen als Zielmarkierung</p>
+                <p><strong>Durchführung:</strong> Kinder füllen Becher mit Bachwasser, Staffellauf zum Zieleimer (bei der Team-Fahne), Wasser einfüllen und zurücklaufen</p>
+                <p><strong>Punktevergabe:</strong> Sieger ist das Team, das zuerst seinen Eimer bis zur Markierung gefüllt hat</p>
+                <p><strong>Dauer:</strong> ca. 15 Minuten</p>
+            </div>
+        </div>
+        
+        <div id="expressModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('expressModal')">&times;</span>
+                <h3>Unterwasser-Express</h3>
+                <p><strong>Material:</strong> 2 Bälle (1 pro Team)</p>
+                <p><strong>Durchführung:</strong> Teams stellen sich breitbeinig hintereinander auf, Ball wird von vorne nach hinten durch die Beine durchgereicht, letztes Kind läuft nach vorne und beginnt erneut</p>
+                <p><strong>Punktevergabe:</strong> Sieger ist das Team, bei dem das erste Kind wieder vorne steht</p>
+                <p><strong>Dauer:</strong> ca. 15 Minuten</p>
+            </div>
+        </div>
+        
+        <div id="pistolenModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('pistolenModal')">&times;</span>
+                <h3>Wasserpistolen-Zielschießen</h3>
+                <p><strong>Material:</strong> Wasserpistolen (für jedes Kind eine), Leere Plastikflaschen als Zielscheiben</p>
+                <p><strong>Durchführung:</strong> Aufstellen von Zielscheiben in unterschiedlichen Entfernungen, Kinder versuchen, Ziele umzuschießen</p>
+                <p><strong>Hinweis:</strong> Freies Spiel ohne Punktevergabe</p>
+                <p><strong>Dauer:</strong> ca. 15 Minuten</p>
+            </div>
+        </div>
+        
+        <div id="freiesspielModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('freiesspielModal')">&times;</span>
+                <h3>Freies Spiel / Sonstiges</h3>
+                <p><strong>Spielideen:</strong></p>
+                <ul>
+                    <li>Tannenzapfen-Weitwurf: Wer kann seinen Tannenzapfen am weitesten werfen?</li>
+                    <li>Stopp-Tanz: Musik wird abgespielt, wenn sie stoppt, müssen alle erstarren.</li>
+                    <li>1-2-3 / Waldgeister-Verstecken: Eine Variante von "Ochs am Berg" im Wald.</li>
+                    <li>Waldparcours: Einen einfachen Hindernisparcours mit Naturmaterialien aufbauen.</li>
+                    <li>Waldgeräusche-Raten: Kinder schließen die Augen und müssen Geräusche identifizieren.</li>
+                </ul>
+                <p><strong>Material:</strong> Tannenzapfen, Smartphone für Musik, Naturmaterialien für Parcours</p>
+                <p><strong>Hinweis:</strong> Freies Spiel ohne Punktevergabe, je nach Zeit und Interesse der Kinder</p>
+                <p><strong>Dauer:</strong> variabel</p>
+            </div>
+        </div>
+        
+        <div id="dateien" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-file-download"></i> Dateien</h2>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="section-content">
+                <p>Hier findest du alle wichtigen Dateien für die Geburtstagsfeier zum Herunterladen:</p>
+            
+            <div class="files-grid">
+                <div class="file-card">
+                    <div class="file-icon"><i class="fas fa-map"></i></div>
+                    <div class="file-name">Schatzsuche-Karte</div>
+                    <a href="Schatzsuche_Karte.html" class="download-btn">Öffnen</a>
+                </div>
+                
+                <div class="file-card">
+                    <div class="file-icon"><i class="fas fa-th"></i></div>
+                    <div class="file-name">Sammel-Bingo Karten</div>
+                    <a href="Sammel_Bingo_Karten.html" class="download-btn">Öffnen</a>
+                </div>
+                
+                <div class="file-card">
+                    <div class="file-icon"><i class="fas fa-clipboard-list"></i></div>
+                    <div class="file-name">Punktekarten</div>
+                    <a href="Punktekarten.html" class="download-btn">Öffnen</a>
+                </div>
+                
+                <div class="file-card">
+                    <div class="file-icon"><i class="fas fa-water"></i></div>
+                    <div class="file-name">Wald- und Wasserspiele</div>
+                    <a href="Wald_und_Wasserspiele.html" class="download-btn">Öffnen</a>
+                </div>
+            </div>
+            </div>
+        </div>
+        
+        <div id="fotos" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-camera"></i> Fotos</h2>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="section-content">
+                <p>Hier werden die Fotos der Geburtstagsfeier abgelegt:</p>
+                
+                <div style="text-align: center; padding: 30px; background-color: #f9f9f9; border-radius: 8px; margin-top: 20px;">
+                    <i class="fas fa-camera" style="font-size: 48px; color: #1e90ff; margin-bottom: 15px;"></i>
+                    <p>Die Fotos werden nach der Feier hier hochgeladen und für alle Eltern zugänglich gemacht.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Modal-Funktionen
+        function openGameModal(gameId) {
+            document.getElementById(gameId + 'Modal').style.display = 'block';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // Schließen des Modals, wenn außerhalb geklickt wird
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+        
+        // Ein- und Ausklappen der Abschnitte
+        document.addEventListener('DOMContentLoaded', function() {
+            const sectionHeaders = document.querySelectorAll('.section-header');
+            
+            // Alle Abschnitte außer "Organisatorisches" einklappen
+            document.querySelectorAll('.section').forEach(section => {
+                if (section.id !== 'organisatorisches') {
+                    section.classList.add('collapsed');
+                }
+            });
+            
+            sectionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const section = this.parentElement;
+                    section.classList.toggle('collapsed');
+                });
+            });
+        });
+        
+        // Checkbox-Funktionalität für Materialien
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('.material-checkbox');
+            
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const listItem = this.parentElement;
+                    if (this.checked) {
+                        listItem.style.textDecoration = 'line-through';
+                        listItem.style.opacity = '0.6';
+                    } else {
+                        listItem.style.textDecoration = 'none';
+                        listItem.style.opacity = '1';
+                    }
+                    
+                    // Speichern des Status in localStorage
+                    localStorage.setItem('material-' + this.id, this.checked);
+                });
+                
+                // Status aus localStorage laden
+                const savedStatus = localStorage.getItem('material-' + checkbox.id);
+                if (savedStatus === 'true') {
+                    checkbox.checked = true;
+                    const listItem = checkbox.parentElement;
+                    listItem.style.textDecoration = 'line-through';
+                    listItem.style.opacity = '0.6';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

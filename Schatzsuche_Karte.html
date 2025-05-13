@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schatzsuche zum Paradies</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5dc;
+            color: #654321;
+            background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 248, 220, 0.9);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(139, 69, 19, 0.1);
+            border: 2px dashed #b8860b;
+            position: relative;
+        }
+        
+        .print-button {
+            display: block;
+            margin: 0 auto 25px;
+            padding: 12px 24px;
+            background-color: #8b4513;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .print-button:hover {
+            background-color: #a0522d;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        
+        .print-button i {
+            margin-right: 8px;
+        }
+        
+        h1, h2, h3 {
+            color: #8b4513;
+            text-align: center;
+            font-weight: 700;
+        }
+        
+        h1 {
+            margin-bottom: 30px;
+            font-size: 32px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            right: 25%;
+            height: 3px;
+            background: linear-gradient(to right, #8b4513, #deb887, #8b4513);
+            border-radius: 3px;
+        }
+        
+        h2 {
+            margin-top: 30px;
+            border-bottom: 2px solid #d2b48c;
+            padding-bottom: 8px;
+            font-size: 24px;
+        }
+        
+        h3 {
+            font-size: 20px;
+            margin-top: 25px;
+            color: #a0522d;
+        }
+        
+        .station {
+            background-color: #faebd7;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 4px solid #deb887;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .station:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .hint {
+            font-style: italic;
+            color: #8b4513;
+            margin: 15px 0;
+            padding: 15px;
+            background-color: #fffacd;
+            border-radius: 8px;
+            font-size: 18px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            border-left: 3px solid #f0e68c;
+        }
+        
+        .task {
+            font-weight: bold;
+            color: #a0522d;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: rgba(160, 82, 45, 0.1);
+            border-radius: 8px;
+        }
+        
+        .map {
+            text-align: center;
+            font-size: 24px;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #fffacd;
+            border-radius: 12px;
+            border: 1px solid #deb887;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .tips {
+            background-color: #f0e68c;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .tips li {
+            margin-bottom: 12px;
+        }
+        
+        .emoji {
+            font-size: 28px;
+        }
+        
+        .page-break {
+            page-break-after: always;
+        }
+        
+        /* Druckbare Hinweiskarten */
+        .hint-cards {
+            margin-top: 40px;
+        }
+        
+        .hint-card {
+            background-color: #fffacd;
+            border: 2px dashed #b8860b;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            page-break-inside: avoid;
+            page-break-after: always;
+        }
+        
+        .hint-card h3 {
+            margin-top: 0;
+            color: #8b4513;
+        }
+        
+        .hint-card .emoji {
+            font-size: 48px;
+            margin: 15px 0;
+            display: block;
+        }
+        
+        .hint-card .hint-text {
+            font-size: 20px;
+            font-weight: 500;
+            color: #654321;
+            line-height: 1.5;
+            margin: 20px 0;
+        }
+        
+        .hint-card .hint-number {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #8b4513;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .scissors {
+            text-align: center;
+            margin: 10px 0;
+            color: #8b4513;
+            font-size: 14px;
+        }
+        
+        .scissors i {
+            margin: 0 5px;
+        }
+        
+        /* Mobile Optimierung */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 26px;
+            }
+            h2 {
+                font-size: 22px;
+            }
+            h3 {
+                font-size: 18px;
+            }
+            .hint {
+                font-size: 16px;
+                padding: 12px;
+            }
+            .hint-card .hint-text {
+                font-size: 18px;
+            }
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                background-image: none;
+            }
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+                border: none;
+            }
+            .print-button {
+                display: none;
+            }
+            .hint-card {
+                page-break-after: always;
+                border: 1px dashed #b8860b;
+                box-shadow: none;
+            }
+            .scissors {
+                display: block;
+            }
+            .station:hover {
+                transform: none;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🗺️ Schatzsuche zum Paradies 🏝️</h1>
+        
+        <button class="print-button" onclick="window.print()"><i class="fas fa-print"></i>Drucken</button>
+        
+        <div class="page-break">
+            <h2>Anleitung für Erwachsene</h2>
+            <p>Verstecke vor der Party bunte Zip-Lock-Beutel (idealerweise in den Teamfarben blau und grün) mit "Schätzen" (Süßigkeiten oder kleine Spielzeuge) an den unten genannten Stationen. Die Kinder bekommen eine vereinfachte Version dieser Karte mit den Hinweisen und Bildern.</p>
+            
+            <h3>Stationen und Verstecke</h3>
+            
+            <div class="station">
+                <h3>🏠 Station 1: Start am Haus</h3>
+                <p><strong>Hinweis für die Kinder:</strong></p>
+                <p class="hint">"Euer Abenteuer beginnt! Der erste Schatz ist dort versteckt, wo man 🏓 Bälle hin und her schlagen kann, aber nicht mit den Händen."</p>
+                <p><strong>Versteck:</strong> Bei den Tischtennisplatten einen Zip-Lock-Beutel unter einer der Platten oder in unmittelbarer Nähe verstecken.</p>
+                <p class="task">Aufgabe für die Kinder: "Spielt Tischtennis-Pantomime: Jedes Kind zeigt, wie es Tischtennis spielt!"</p>
+            </div>
+            
+            <div class="station">
+                <h3>🌳 Station 2: Kreuzung mit Baumstämmen</h3>
+                <p><strong>Hinweis für die Kinder:</strong></p>
+                <p class="hint">"Folgt dem Weg bis ihr zu gefällten 🌲 Baumriesen kommt. Sucht dort, wo sich die Wege treffen. Aber Achtung: Nehmt den Weg nach ⬅️ links!"</p>
+                <p><strong>Versteck:</strong> Bei den Baumstämmen an der Kreuzung einen Zip-Lock-Beutel verstecken, vielleicht in einer Baumstammritze oder dahinter.</p>
+                <p class="task">Aufgabe für die Kinder: "Hüpft 5 Mal wie ein 🐸 Frosch!"</p>
+            </div>
+            
+            <div class="station">
+                <h3>🚦 Station 3: Ampel an der Straße</h3>
+                <p><strong>Hinweis für die Kinder:</strong></p>
+                <p class="hint">"Geht weiter Richtung Stadtwerke bis ihr zu einer 🚦 Ampel kommt, wo ihr warten müsst, bis es 🟢 grün wird. Seid vorsichtig und haltet euch an den Händen! Der nächste Schatz wartet auf der anderen Seite."</p>
+                <p><strong>Versteck:</strong> Nach der Straßenüberquerung einen Zip-Lock-Beutel platzieren (aus Sicherheitsgründen erst nach der Straße).</p>
+                <p class="task">Aufgabe für die Kinder: "Spielt 'Rot-Gelb-Grün': Bei 'Rot' stehen bleiben, bei 'Gelb' auf der Stelle hüpfen, bei 'Grün' weiterlaufen!"</p>
+            </div>
+        </div>
+        
+        <div class="page-break">
+            <div class="station">
+                <h3>🏛️ Station 4: Museum Abtsküche</h3>
+                <p><strong>Hinweis für die Kinder:</strong></p>
+                <p class="hint">"Nun kommt ihr an einem 🏛️ Museum vorbei, wo alte Dinge aufbewahrt werden. Schaut euch um - vielleicht findet ihr etwas Glitzerndes in der Nähe!"</p>
+                <p><strong>Versteck:</strong> In der Nähe des Museums einen Zip-Lock-Beutel verstecken, vielleicht bei einem markanten Merkmal wie einer Bank oder einem Schild.</p>
+                <p class="task">Aufgabe für die Kinder: "Stellt euch vor, ihr seid 🗿 Statuen in einem Museum - haltet 10 Sekunden ganz still!"</p>
+            </div>
+            
+            <div class="station">
+                <h3>📝 Station 5: Frühlingsgedichte</h3>
+                <p><strong>Hinweis für die Kinder:</strong></p>
+                <p class="hint">"Jetzt geht es in den 🌳 Wald hinein! Folgt dem Weg bergab und haltet Ausschau nach 📝 Holztafeln mit Gedichten. Dort ist der nächste Schatz versteckt."</p>
+                <p><strong>Versteck:</strong> Bei den Frühlingsgedichten im Wald einen Zip-Lock-Beutel verstecken.</p>
+                <p class="task">Aufgabe für die Kinder: "Dichtet gemeinsam einen kurzen Reim über 💧 Wasser oder Theos Geburtstag!"</p>
+            </div>
+            
+            <div class="station">
+                <h3>🌊 Station 6: Ankunft im Paradies</h3>
+                <p><strong>Hinweis für die Kinder:</strong></p>
+                <p class="hint">"Ihr seid fast am Ziel! Folgt dem Weg bis zu den 🪑 Bänken beim 💦 plätschernden Wasser. Dort wartet das 🏝️ Paradies und der letzte Schatz auf euch!"</p>
+                <p><strong>Versteck:</strong> Bei den Bänken am Eingang zum "Paradies" den letzten und vielleicht größten Schatz verstecken.</p>
+                <p class="task">Aufgabe für die Kinder: "Macht gemeinsam eine Wasserwelle mit euren Armen und ruft laut: 'Hurra, wir haben es geschafft!'"</p>
+            </div>
+        </div>
+        
+        <div class="page-break">
+            <h2>Vereinfachte Schatzkarte für die Kinder</h2>
+            
+            <div class="map">
+                <p>🏠 → 🏓 → 🌳 → 🚦 → 🏛️ → 📝 → 🌊</p>
+                <p>Start   Tischtennis   Baumstämme   Ampel   Museum   Gedichte   Paradies</p>
+            </div>
+            
+            <h3>Hinweise für die Kinder</h3>
+            <ol>
+                <li><span class="emoji">🏓</span> <strong>Tischtennis:</strong> Wo kann man Bälle hin und her schlagen?</li>
+                <li><span class="emoji">🌳</span> <strong>Baumstämme:</strong> Sucht bei den großen gefällten Bäumen und geht dann links!</li>
+                <li><span class="emoji">🚦</span> <strong>Ampel:</strong> Wartet auf Grün und überquert vorsichtig die Straße!</li>
+                <li><span class="emoji">🏛️</span> <strong>Museum:</strong> Wo werden alte Dinge aufbewahrt?</li>
+                <li><span class="emoji">📝</span> <strong>Gedichte:</strong> Sucht nach Holztafeln mit Gedichten im Wald!</li>
+                <li><span class="emoji">🌊</span> <strong>Paradies:</strong> Folgt dem Weg bis zu den Bänken beim plätschernden Wasser!</li>
+            </ol>
+            
+            <div class="tips">
+                <h3>Tipps</h3>
+                <ul>
+                    <li>Verwende blaue Zip-Lock-Beutel für Team Blaue Quallen und grüne für Team Frösche</li>
+                    <li>Lege in jeden Beutel einen kleinen Hinweis für den nächsten Ort und ggf. kleine Süßigkeiten</li>
+                    <li>Drucke die Hinweise mit den Emojis aus, damit auch Kinder, die noch nicht gut lesen können, die Hinweise verstehen</li>
+                    <li>Bei jeder Station müssen die Kinder die angegebene Aufgabe erfüllen, bevor sie zum nächsten Hinweis gehen dürfen</li>
+                    <li>Erwachsene können subtil Hilfestellung geben, wenn die Kinder Schwierigkeiten haben</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="page-break">
+            <h2>Druckbare Hinweiskarten zum Ausschneiden</h2>
+            <p>Drucke diese Seite aus, schneide die Karten entlang der gestrichelten Linien aus und verstecke sie an den entsprechenden Stationen.</p>
+            
+            <div class="hint-cards">
+                <!-- Station 1 -->
+                <div class="hint-card">
+                    <div class="hint-number">1</div>
+                    <h3>🏠 Start am Haus</h3>
+                    <span class="emoji">🏓</span>
+                    <p class="hint-text">"Euer Abenteuer beginnt! Der erste Schatz ist dort versteckt, wo man Bälle hin und her schlagen kann, aber nicht mit den Händen."</p>
+                    <p class="task">Aufgabe: Spielt Tischtennis-Pantomime: Jedes Kind zeigt, wie es Tischtennis spielt!</p>
+                    <div class="scissors">✂️ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ✂️</div>
+                </div>
+                
+                <!-- Station 2 -->
+                <div class="hint-card">
+                    <div class="hint-number">2</div>
+                    <h3>🌳 Kreuzung mit Baumstämmen</h3>
+                    <span class="emoji">🌲</span>
+                    <p class="hint-text">"Folgt dem Weg bis ihr zu gefällten Baumriesen kommt. Sucht dort, wo sich die Wege treffen. Aber Achtung: Nehmt den Weg nach ⬅️ links!"</p>
+                    <p class="task">Aufgabe: Hüpft 5 Mal wie ein 🐸 Frosch!</p>
+                    <div class="scissors">✂️ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ✂️</div>
+                </div>
+                
+                <!-- Station 3 -->
+                <div class="hint-card">
+                    <div class="hint-number">3</div>
+                    <h3>🚦 Ampel an der Straße</h3>
+                    <span class="emoji">🚦</span>
+                    <p class="hint-text">"Geht weiter Richtung Stadtwerke bis ihr zu einer Ampel kommt, wo ihr warten müsst, bis es 🟢 grün wird. Seid vorsichtig und haltet euch an den Händen! Der nächste Schatz wartet auf der anderen Seite."</p>
+                    <p class="task">Aufgabe: Spielt 'Rot-Gelb-Grün': Bei 'Rot' stehen bleiben, bei 'Gelb' auf der Stelle hüpfen, bei 'Grün' weiterlaufen!</p>
+                    <div class="scissors">✂️ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ✂️</div>
+                </div>
+                
+                <!-- Station 4 -->
+                <div class="hint-card">
+                    <div class="hint-number">4</div>
+                    <h3>🏛️ Museum Abtsküche</h3>
+                    <span class="emoji">🏛️</span>
+                    <p class="hint-text">"Nun kommt ihr an einem Museum vorbei, wo alte Dinge aufbewahrt werden. Schaut euch um - vielleicht findet ihr etwas Glitzerndes in der Nähe!"</p>
+                    <p class="task">Aufgabe: Stellt euch vor, ihr seid 🗿 Statuen in einem Museum - haltet 10 Sekunden ganz still!</p>
+                    <div class="scissors">✂️ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ✂️</div>
+                </div>
+                
+                <!-- Station 5 -->
+                <div class="hint-card">
+                    <div class="hint-number">5</div>
+                    <h3>📝 Frühlingsgedichte</h3>
+                    <span class="emoji">📝</span>
+                    <p class="hint-text">"Jetzt geht es in den 🌳 Wald hinein! Folgt dem Weg bergab und haltet Ausschau nach Holztafeln mit Gedichten. Dort ist der nächste Schatz versteckt."</p>
+                    <p class="task">Aufgabe: Dichtet gemeinsam einen kurzen Reim über 💧 Wasser oder Theos Geburtstag!</p>
+                    <div class="scissors">✂️ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ✂️</div>
+                </div>
+                
+                <!-- Station 6 -->
+                <div class="hint-card">
+                    <div class="hint-number">6</div>
+                    <h3>🌊 Ankunft im Paradies</h3>
+                    <span class="emoji">🏝️</span>
+                    <p class="hint-text">"Ihr seid fast am Ziel! Folgt dem Weg bis zu den 🪑 Bänken beim 💦 plätschernden Wasser. Dort wartet das Paradies und der letzte Schatz auf euch!"</p>
+                    <p class="task">Aufgabe: Macht gemeinsam eine Wasserwelle mit euren Armen und ruft laut: 'Hurra, wir haben es geschafft!'</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

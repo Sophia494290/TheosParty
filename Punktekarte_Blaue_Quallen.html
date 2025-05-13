@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punktekarte Team Blaue Quallen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #e6f7ff;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: 2px solid #1e90ff;
+        }
+        h1 {
+            color: #1e90ff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .team-title {
+            text-align: center;
+            font-size: 24px;
+            margin: 20px 0;
+            font-weight: bold;
+            color: #1e90ff;
+            background-color: #e6f7ff;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #add8e6;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #1e90ff;
+            color: white;
+            font-weight: bold;
+        }
+        .game-icon {
+            font-size: 24px;
+            color: #1e90ff;
+            text-align: center;
+            width: 50px;
+        }
+        .game-name {
+            font-weight: bold;
+            color: #4682b4;
+        }
+        .checkbox-cell {
+            text-align: center;
+            width: 80px;
+        }
+        .points-cell {
+            text-align: center;
+            width: 80px;
+        }
+        .checkbox {
+            width: 20px;
+            height: 20px;
+        }
+        .points-input {
+            width: 50px;
+            height: 30px;
+            text-align: center;
+            font-size: 16px;
+            border: 1px solid #add8e6;
+            border-radius: 4px;
+        }
+        .total-row {
+            font-weight: bold;
+            background-color: #e6f7ff;
+        }
+        .instructions {
+            background-color: #e6f7ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        @media print {
+            body {
+                background-color: white;
+            }
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Punktekarte</h1>
+        
+        <div class="team-title">🌊 Team Blaue Quallen 🌊</div>
+        
+        <div class="instructions">
+            <p><strong>Anleitung:</strong> Hake jedes absolvierte Spiel ab und trage die erreichten Punkte ein. Am Ende werden die Punkte zusammengezählt.</p>
+        </div>
+        
+        <table>
+            <tr>
+                <th>Icon</th>
+                <th>Spiel</th>
+                <th>Erledigt</th>
+                <th>Punkte</th>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-flag"></i></td>
+                <td class="game-name">Team-Fahnen gestalten</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-sailboat"></i></td>
+                <td class="game-name">Schiffswettrennen</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-kiwi-bird"></i></td>
+                <td class="game-name">Enten angeln</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-bullseye"></i></td>
+                <td class="game-name">Schalen versenken</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-water"></i></td>
+                <td class="game-name">Staudamm bauen</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-fill-drip"></i></td>
+                <td class="game-name">Wasser-Staffel</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-basketball-ball"></i></td>
+                <td class="game-name">Unterwasser-Express</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-spray-can"></i></td>
+                <td class="game-name">Wasserpistolen-Zielschießen</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input" min="0" max="10"></td>
+            </tr>
+            <tr>
+                <td class="game-icon"><i class="fas fa-tree"></i></td>
+                <td class="game-name">Freies Spiel / Sonstiges</td>
+                <td class="checkbox-cell"><input type="checkbox" class="checkbox"></td>
+                <td class="points-cell"><input type="number" class="points-input" min="0" max="10"></td>
+            </tr>
+            <tr class="total-row">
+                <td colspan="2" style="text-align: right;">Gesamtpunktzahl:</td>
+                <td colspan="2" style="text-align: center;"><span id="total-points">0</span></td>
+            </tr>
+        </table>
+        
+        <div class="instructions">
+            <p><strong>Hinweis:</strong> Beide Teams sind Gewinner! Die Punktzahl dient nur zur Motivation während der Spiele.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Berechnung der Gesamtpunktzahl
+        const pointsInputs = document.querySelectorAll('.points-input');
+        const totalPoints = document.getElementById('total-points');
+        
+        pointsInputs.forEach(input => {
+            input.addEventListener('change', calculateTotal);
+        });
+        
+        function calculateTotal() {
+            let total = 0;
+            pointsInputs.forEach(input => {
+                total += parseInt(input.value) || 0;
+            });
+            totalPoints.textContent = total;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+GitHub-Konto erstellen (falls noch nicht vorhanden)
+Falls Sie noch kein GitHub-Konto haben, müssen Sie zuerst eines erstellen:
+
+Besuchen Sie github.com
+Klicken Sie auf "Sign up" und folgen Sie den Anweisungen
+2. Ein neues Repository erstellen
+Melden Sie sich bei GitHub an
+Klicken Sie auf das "+" Symbol in der oberen rechten Ecke und wählen Sie "New repository"
+Geben Sie dem Repository einen Namen, z.B. "theos-geburtstag"
+Wichtig: Stellen Sie sicher, dass das Repository "Public" ist (nicht "Private")
+Aktivieren Sie die Option "Initialize this repository with a README"
+Klicken Sie auf "Create repository"
+3. Die HTML-Datei hochladen
+In Ihrem neuen Repository klicken Sie auf "Add file" und dann "Upload files"
+Ziehen Sie die Datei "Geburtstag.html" in den Upload-Bereich oder klicken Sie auf "choose your files", um sie auszuwählen
+Geben Sie eine Commit-Nachricht ein, z.B. "Theos Geburtstagswebseite hinzufügen"
+Klicken Sie auf "Commit changes"
+4. Die Datei umbenennen
+Damit GitHub Pages Ihre Seite als Hauptseite erkennt, sollten wir die Datei in "index.html" umbenennen:
+
+Klicken Sie in der Repository-Übersicht auf die Datei "Geburtstag.html"
+Klicken Sie auf das Stift-Symbol (Edit) in der oberen rechten Ecke der Dateiansicht
+Neben dem Dateinamen (oben im Editor) klicken Sie auf das Stift-Symbol
+Ändern Sie den Namen zu "index.html"
+Scrollen Sie nach unten und klicken Sie auf "Commit changes"
+5. GitHub Pages aktivieren
+Gehen Sie zu den Repository-Einstellungen (klicken Sie auf "Settings" in der oberen Leiste)
+Scrollen Sie nach unten zum Abschnitt "GitHub Pages"
+Unter "Source" wählen Sie "main" (oder "master") aus dem Dropdown-Menü
+Klicken Sie auf "Save"
+Nach kurzer Zeit wird Ihnen ein Link angezeigt (normalerweise in der Form https://[ihr-benutzername].github.io/theos-geburtstag/)
+Ihre Webseite ist jetzt unter der URL https://[ihr-benutzername].github.io/theos-geburtstag/ öffentlich zugänglich! Sie können diesen Link mit anderen teilen, damit sie die Geburtstagsseite sehen können.
+
+Möchten Sie, dass ich Ihnen bei einem dieser Schritte genauer helfe?

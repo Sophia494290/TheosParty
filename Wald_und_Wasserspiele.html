@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wald- und Wasserspiele - Theos 7. Geburtstag</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --forest-green: #2e8b57;
+            --light-green: #8fbc8f;
+            --water-blue: #4682b4;
+            --light-blue: #add8e6;
+            --sand-color: #f5f5dc;
+            --wood-brown: #8b4513;
+            --light-brown: #deb887;
+        }
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--sand-color);
+            color: #333;
+            background-image: url('https://www.transparenttextures.com/patterns/little-pluses.png');
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(to right, var(--forest-green), var(--water-blue));
+            border-radius: 15px 15px 0 0;
+        }
+        
+        h1 {
+            color: var(--forest-green);
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            position: relative;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            right: 25%;
+            height: 3px;
+            background: linear-gradient(to right, var(--forest-green), var(--water-blue), var(--forest-green));
+            border-radius: 3px;
+        }
+        .print-button {
+            display: block;
+            margin: 0 auto 25px;
+            padding: 12px 24px;
+            background-color: var(--forest-green);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .print-button:hover {
+            background-color: var(--water-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        
+        .print-button i {
+            margin-right: 8px;
+        }
+        
+        .games-table {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, auto);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .game-cell {
+            border-radius: 12px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--light-green);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-cell:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .game-cell:nth-child(odd) {
+            border-left-color: var(--light-green);
+        }
+        
+        .game-cell:nth-child(even) {
+            border-left-color: var(--light-blue);
+        }
+        
+        .game-cell::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 30%;
+            height: 30%;
+            background-image: radial-gradient(circle at bottom right, rgba(173, 216, 230, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+            z-index: 0;
+        }
+        
+        .game-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(173, 216, 230, 0.3);
+            position: relative;
+        }
+        
+        .game-icon {
+            font-size: 22px;
+            color: white;
+            margin-right: 15px;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, var(--forest-green), var(--water-blue));
+        }
+        
+        .game-title {
+            font-size: 18px;
+            color: var(--wood-brown);
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .info-row {
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: var(--forest-green);
+            margin-right: 5px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .duration-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--forest-green), var(--water-blue));
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-left: 10px;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        /* Mobile Optimierung */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 22px;
+                margin-bottom: 20px;
+                padding-bottom: 8px;
+            }
+            h1::after {
+                left: 15%;
+                right: 15%;
+            }
+            .games-table {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            .game-cell {
+                padding: 15px;
+            }
+            .game-header {
+                margin-bottom: 12px;
+                padding-bottom: 8px;
+            }
+            .game-icon {
+                font-size: 18px;
+                width: 38px;
+                height: 38px;
+                margin-right: 10px;
+            }
+            .game-title {
+                font-size: 16px;
+            }
+            .info-row {
+                margin-bottom: 10px;
+                font-size: 14px;
+            }
+            .info-label {
+                margin-bottom: 3px;
+            }
+            .duration-badge {
+                font-size: 11px;
+                padding: 3px 8px;
+            }
+            .print-button {
+                font-size: 15px;
+                padding: 8px 16px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+            }
+            .container {
+                padding: 15px;
+                border-radius: 12px;
+            }
+            h1 {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+            h1::after {
+                left: 10%;
+                right: 10%;
+            }
+            .games-table {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .game-cell {
+                padding: 12px;
+            }
+            .game-icon {
+                font-size: 16px;
+                width: 32px;
+                height: 32px;
+            }
+            .game-title {
+                font-size: 15px;
+            }
+            .info-row {
+                font-size: 13px;
+                margin-bottom: 8px;
+            }
+            .print-button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+        
+        @page {
+            size: auto;
+            margin: 0.25cm;
+        }
+        @media print {
+            body {
+                padding: 0;
+                background-color: white;
+                transform: scale(0.68);
+                transform-origin: top center;
+            }
+            .container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            h1 {
+                margin-bottom: 10px;
+                padding-bottom: 5px;
+                font-size: 20px;
+            }
+            .games-table {
+                gap: 6px;
+            }
+            .game-cell {
+                page-break-inside: avoid;
+                border: 1px solid #ccc;
+                font-size: 85%;
+                padding: 8px;
+                min-height: 0;
+            }
+            .game-header {
+                margin-bottom: 4px;
+                padding-bottom: 3px;
+            }
+            .info-row {
+                margin-bottom: 3px;
+                line-height: 1.2;
+            }
+            h2 {
+                font-size: 14px;
+                margin: 0;
+            }
+            .game-icon {
+                width: 24px;
+                height: 24px;
+                font-size: 14px;
+                margin-right: 8px;
+            }
+            .duration-badge {
+                padding: 1px 4px;
+                font-size: 10px;
+                margin-left: 5px;
+            }
+            .footer {
+                margin-top: 8px;
+                padding-top: 5px;
+                font-size: 10px;
+            }
+            ul {
+                margin-top: 2px;
+                padding-left: 15px;
+                margin-bottom: 2px;
+            }
+            li {
+                margin-bottom: 0;
+                line-height: 1.1;
+            }
+            .info-label {
+                margin-bottom: 1px;
+                display: inline;
+                margin-right: 3px;
+            }
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 12px;
+            color: #777;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        ul {
+            margin-top: 5px;
+            padding-left: 20px;
+        }
+        .print-button {
+            display: block;
+            margin: 0 auto 20px;
+            padding: 10px 20px;
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .print-button:hover {
+            background-color: #0c7cd5;
+        }
+        .print-button i {
+            margin-right: 8px;
+        }
+        @media print {
+            .print-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Wald- und Wasserspiele für Theos 7. Geburtstag</h1>
+        
+        <button class="print-button" onclick="window.print()"><i class="fas fa-print"></i>Drucken</button>
+        
+        <div class="games-table">
+            <!-- Spiel 1 -->
+            <div class="game-cell">
+                <div class="game-header">
+                    <div class="game-icon"><i class="fas fa-flag"></i></div>
+                    <h2 class="game-title">Team-Fahnen gestalten <span class="duration-badge">ca. 15 Min.</span></h2>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Material:</span>
+                    2 weiße Tücher, 2 lange Stöcke, Wasserfeste Stifte
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Durchführung:</span>
+                    Jedes Team gestaltet eine eigene Fahne mit Teamnamen und allen Kindernamen. Die Fahnen werden später bei der Wasser-Staffel als Zielmarkierung verwendet.
+                </div>
+            </div>
+            
+            <!-- Spiel 2 -->
+            <div class="game-cell">
+                <div class="game-header">
+                    <div class="game-icon"><i class="fas fa-sailboat"></i></div>
+                    <h2 class="game-title">Schiffswettrennen <span class="duration-badge">ca. 20 Min.</span></h2>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Material:</span>
+                    Gesammelte Baumrinde, Stöcker, Blätter, Schnitzmesser
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Durchführung:</span>
+                    Jedes Team baut aus den gesammelten Materialien ein Rindenschiff. Die Teams lassen ihre Schiffe im Bach gegeneinander fahren.
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Punktevergabe:</span>
+                    1 Punkt pro gewonnenem Rennen, Zusatzpunkt für besonders kreatives Schiffsdesign
+                </div>
+            </div>  
+            <!-- Spiel 3 -->
+            <div class="game-cell">
+                <div class="game-header">
+                    <div class="game-icon"><i class="fas fa-kiwi-bird"></i></div>
+                    <h2 class="game-title">Enten angeln <span class="duration-badge">ca. 15 Min.</span></h2>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Material:</span>
+                    5-8 Badetiere, 2 Käscher
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Durchführung:</span>
+                    Badetiere werden ins seichte Wasser gesetzt. Ein Kind pro Team steht am Ziel mit Käscher, andere Teammitglieder scheuchen Tiere in Richtung Käscher.
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Punktevergabe:</span>
+                    1 Punkt pro geangeltem Tier, Bonuspunkt für das schnellste Team
+                </div>
+            </div>
+            <!-- Spiel 4 -->
+            <div class="game-cell">
+                <div class="game-header">
+                    <div class="game-icon"><i class="fas fa-bullseye"></i></div>
+                    <h2 class="game-title">Schalen versenken <span class="duration-badge">ca. 15 Min.</span></h2>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Material:</span>
+                    2 Plastikschalen, Gesammelte Steine (normal groß, nicht zu groß!)
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Durchführung:</span>
+                    Plastikschalen schwimmen im seichten Wasser. Kinder bauen eine kleine Steinmauer um die Schalen, damit sie nicht wegtreiben. Kinder werfen abwechselnd Steine, um Schale zu treffen.
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Punktevergabe:</span>
+                    1 Punkt pro Runde für das Team, dessen Schale zuerst untergeht
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Wichtiger Hinweis:</span>
+                    Nur normal große Steine verwenden, keine zu großen Steine, da die Schalen sonst kaputt gehen könnten!
+                </div>
+            </div>
+            
+            <!-- Spiel 5 -->
+            <div class="game-cell">
+                <div class="game-header">
+                    <div class="game-icon"><i class="fas fa-water"></i></div>
+                    <h2 class="game-title">Staudamm bauen <span class="duration-badge">ca. 20 Min.</span></h2>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Material:</span>
+                    Steine, Äste, Blätter aus der Umgebung
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Durchführung:</span>
+                    Jedes Team baut einen Staudamm an zugewiesener Stelle. Zeit: 15 Minuten zum Bauen.
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Punktevergabe (optional):</span>
+                    Bewertung nach Höhe des aufgestauten Wassers, Bonuspunkte für Kreativität und Stabilität
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Hinweis:</span>
+                    Kann auch als freies Spiel ohne Wettbewerbscharakter durchgeführt werden
+                </div>
+            </div>
+            <!-- Spiel 6 -->
+            <div class="game-cell">
+                <div class="game-header">
+                    <div class="game-icon"><i class="fas fa-fill-drip"></i></div>
+                    <h2 class="game-title">Wasser-Staffel <span class="duration-badge">ca. 15 Min.</span></h2>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Material:</span>
+                    2 kleine Becher, 2 Eimer als Ziel, Team-Fahnen als Zielmarkierung
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Durchführung:</span>
+                    Kinder füllen Becher mit Bachwasser, Staffellauf zum Zieleimer (bei der Team-Fahne), Wasser einfüllen und zurücklaufen
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Punktevergabe:</span>
+                    Sieger ist das Team, das zuerst seinen Eimer bis zur Markierung gefüllt hat
+                </div>
+            </div>  
+            <!-- Spiel 7 -->
+            <div class="game-cell">
+                <div class="game-header">
+                    <div class="game-icon"><i class="fas fa-basketball-ball"></i></div>
+                    <h2 class="game-title">Unterwasser-Express <span class="duration-badge">ca. 15 Min.</span></h2>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Material:</span>
+                    2 Bälle (1 pro Team)
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Durchführung:</span>
+                    Teams stellen sich breitbeinig hintereinander auf, Ball wird von vorne nach hinten durch die Beine durchgereicht, letztes Kind läuft nach vorne und beginnt erneut
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Punktevergabe:</span>
+                    Sieger ist das Team, bei dem das erste Kind wieder vorne steht
+                </div>
+            </div>
+            <!-- Spiel 8 -->
+            <div class="game-cell">
+                <div class="game-header">
+                    <div class="game-icon"><i class="fas fa-spray-can"></i></div>
+                    <h2 class="game-title">Wasserpistolen-Zielschießen <span class="duration-badge">ca. 15 Min.</span></h2>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Material:</span>
+                    Wasserpistolen (für jedes Kind eine), Leere Plastikflaschen als Zielscheiben
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Durchführung:</span>
+                    Aufstellen von Zielscheiben in unterschiedlichen Entfernungen, Kinder versuchen, Ziele umzuschießen
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Hinweis:</span>
+                    Freies Spiel ohne Punktevergabe
+                </div>
+            </div>
+            <!-- Spiel 9 -->
+            <div class="game-cell">
+                <div class="game-header">
+                    <div class="game-icon"><i class="fas fa-tree"></i></div>
+                    <h2 class="game-title">Freies Spiel / Sonstiges <span class="duration-badge">variabel</span></h2>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Spielideen:</span>
+                    <ul>
+                        <li>Tannenzapfen-Weitwurf</li>
+                        <li>Stopp-Tanz mit Musik</li>
+                        <li>1-2-3 / Waldgeister-Verstecken</li>
+                        <li>Waldparcours</li>
+                        <li>Waldgeräusche-Raten</li>
+                    </ul>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Material:</span>
+                    Tannenzapfen, Smartphone für Musik, Naturmaterialien für Parcours
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Erstellt für Theos 7. Geburtstag am 18. Mai 2025</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sammel-Bingo für Theos Geburtstagsfeier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f8ff;
+        }
+        .print-button {
+            display: block;
+            margin: 0 auto 20px;
+            padding: 10px 20px;
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .print-button:hover {
+            background-color: #0c7cd5;
+        }
+        .print-button i {
+            margin-right: 8px;
+        }
+        @media print {
+            .print-button {
+                display: none;
+            }
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #1e90ff;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 30px;
+        }
+        h2 {
+            margin-top: 30px;
+            border-bottom: 2px solid #add8e6;
+            padding-bottom: 5px;
+        }
+        .team-title {
+            text-align: center;
+            font-size: 24px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .blue {
+            color: #1e90ff;
+            background-color: #e6f7ff;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        .green {
+            color: #2e8b57;
+            background-color: #e6fff7;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 2px solid #add8e6;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+        }
+        th {
+            background-color: #e6f7ff;
+            font-weight: bold;
+        }
+        .blue-table th {
+            background-color: #1e90ff;
+            color: white;
+        }
+        .green-table th {
+            background-color: #2e8b57;
+            color: white;
+        }
+        .emoji {
+            font-size: 36px;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .item {
+            font-size: 12px;
+        }
+        .joker {
+            font-weight: bold;
+            color: #ff6347;
+        }
+        .instructions {
+            background-color: #e6f7ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .instructions li {
+            margin-bottom: 10px;
+        }
+        /* Mobile Optimierung */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            h2 {
+                font-size: 18px;
+            }
+            .team-title {
+                font-size: 20px;
+            }
+            table {
+                margin: 10px 0;
+            }
+            th, td {
+                padding: 8px;
+                font-size: 16px;
+            }
+            .emoji {
+                font-size: 28px;
+                margin-bottom: 3px;
+            }
+            .item {
+                font-size: 10px;
+            }
+            .instructions {
+                padding: 10px;
+            }
+            .instructions li {
+                margin-bottom: 8px;
+                font-size: 14px;
+            }
+            .print-button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 20px;
+            }
+            .team-title {
+                font-size: 18px;
+            }
+            th, td {
+                padding: 5px;
+                font-size: 14px;
+            }
+            .emoji {
+                font-size: 24px;
+                margin-bottom: 2px;
+            }
+            .item {
+                font-size: 9px;
+            }
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+            }
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Sammel-Bingo für Theos Geburtstagsfeier 🎮</h1>
+        
+        <button class="print-button" onclick="window.print()"><i class="fas fa-print"></i>Drucken</button>
+        
+        <div class="instructions">
+            <h2>Anleitung:</h2>
+            <ol>
+                <li>Jedes Kind bekommt eine Bingo-Karte passend zu seinem Team</li>
+                <li>Sammelt die abgebildeten Gegenstände während des Spaziergangs</li>
+                <li>Markiert jeden gefundenen Gegenstand auf eurer Bingo-Karte (z.B. mit einem Stift oder kleinen Stickern)</li>
+                <li>Wer zuerst 5 Gegenstände in einer Reihe hat (horizontal, vertikal oder diagonal), ruft "BINGO!"</li>
+                <li>Die gesammelten Materialien werden später für die Schiffe und Spiele verwendet</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="team-title blue">🪼 Team Blaue Quallen 🪼</div>
+        
+        <table class="blue-table">
+            <tr>
+                <th>B</th>
+                <th>I</th>
+                <th>N</th>
+                <th>G</th>
+                <th>O</th>
+            </tr>
+            <tr>
+                <td>
+                    <span class="emoji">🪵</span>
+                    <span class="item">Flaches Stück<br>Baumrinde</span>
+                </td>
+                <td>
+                    <span class="emoji">🍁</span>
+                    <span class="item">Ahornblatt</span>
+                </td>
+                <td>
+                    <span class="emoji">🥢</span>
+                    <span class="item">Stock<br>(mind. 20cm)</span>
+                </td>
+                <td>
+                    <span class="emoji">🪨</span>
+                    <span class="item">Kleiner<br>runder Stein</span>
+                </td>
+                <td>
+                    <span class="emoji">🪶</span>
+                    <span class="item">Feder</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="emoji">🍂</span>
+                    <span class="item">Eichenblatt</span>
+                </td>
+                <td>
+                    <span class="emoji">🥏</span>
+                    <span class="item">Flacher<br>Stein</span>
+                </td>
+                <td>
+                    <span class="emoji">🌿</span>
+                    <span class="item">Moos</span>
+                </td>
+                <td>
+                    <span class="emoji">🌲</span>
+                    <span class="item">Tannenzapfen</span>
+                </td>
+                <td>
+                    <span class="emoji">🌼</span>
+                    <span class="item">Gänseblümchen</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="emoji">🌴</span>
+                    <span class="item">Langer Stock<br>(mind. 30cm)</span>
+                </td>
+                <td>
+                    <span class="emoji">🧱</span>
+                    <span class="item">Großes Stück<br>Rinde</span>
+                </td>
+                <td>
+                    <span class="emoji">⭐</span>
+                    <span class="item joker">JOKER</span>
+                </td>
+                <td>
+                    <span class="emoji">🍃</span>
+                    <span class="item">Kleines<br>Blatt</span>
+                </td>
+                <td>
+                    <span class="emoji">🌾</span>
+                    <span class="item">Grashalm</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="emoji">🌺</span>
+                    <span class="item">Bunte<br>Blume</span>
+                </td>
+                <td>
+                    <span class="emoji">🥢</span>
+                    <span class="item">Kleiner<br>Stock</span>
+                </td>
+                <td>
+                    <span class="emoji">🗿</span>
+                    <span class="item">Großer<br>Stein</span>
+                </td>
+                <td>
+                    <span class="emoji">🌳</span>
+                    <span class="item">Birkenrinde</span>
+                </td>
+                <td>
+                    <span class="emoji">☘️</span>
+                    <span class="item">Kleeblatt</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="emoji">🌰</span>
+                    <span class="item">Kastanie</span>
+                </td>
+                <td>
+                    <span class="emoji">🐚</span>
+                    <span class="item">Schneckenhaus</span>
+                </td>
+                <td>
+                    <span class="emoji">🥌</span>
+                    <span class="item">Flacher<br>Kieselstein</span>
+                </td>
+                <td>
+                    <span class="emoji">🔴</span>
+                    <span class="item">Buchecker</span>
+                </td>
+                <td>
+                    <span class="emoji">🌲</span>
+                    <span class="item">Tannennadel</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="container">
+        <div class="team-title green">🐸 Team Grüne Frösche 🐸</div>
+        
+        <table class="green-table">
+            <tr>
+                <th>B</th>
+                <th>I</th>
+                <th>N</th>
+                <th>G</th>
+                <th>O</th>
+            </tr>
+            <tr>
+                <td>
+                    <span class="emoji">🪵</span>
+                    <span class="item">Flaches Stück<br>Baumrinde</span>
+                </td>
+                <td>
+                    <span class="emoji">🍁</span>
+                    <span class="item">Ahornblatt</span>
+                </td>
+                <td>
+                    <span class="emoji">🥢</span>
+                    <span class="item">Stock<br>(mind. 20cm)</span>
+                </td>
+                <td>
+                    <span class="emoji">🪨</span>
+                    <span class="item">Kleiner<br>runder Stein</span>
+                </td>
+                <td>
+                    <span class="emoji">🪶</span>
+                    <span class="item">Feder</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="emoji">🍂</span>
+                    <span class="item">Eichenblatt</span>
+                </td>
+                <td>
+                    <span class="emoji">🥏</span>
+                    <span class="item">Flacher<br>Stein</span>
+                </td>
+                <td>
+                    <span class="emoji">🌿</span>
+                    <span class="item">Moos</span>
+                </td>
+                <td>
+                    <span class="emoji">🌲</span>
+                    <span class="item">Tannenzapfen</span>
+                </td>
+                <td>
+                    <span class="emoji">🌼</span>
+                    <span class="item">Gänseblümchen</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="emoji">🌴</span>
+                    <span class="item">Langer Stock<br>(mind. 30cm)</span>
+                </td>
+                <td>
+                    <span class="emoji">🧱</span>
+                    <span class="item">Großes Stück<br>Rinde</span>
+                </td>
+                <td>
+                    <span class="emoji">⭐</span>
+                    <span class="item joker">JOKER</span>
+                </td>
+                <td>
+                    <span class="emoji">🍃</span>
+                    <span class="item">Kleines<br>Blatt</span>
+                </td>
+                <td>
+                    <span class="emoji">🌾</span>
+                    <span class="item">Grashalm</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="emoji">🌺</span>
+                    <span class="item">Bunte<br>Blume</span>
+                </td>
+                <td>
+                    <span class="emoji">🥢</span>
+                    <span class="item">Kleiner<br>Stock</span>
+                </td>
+                <td>
+                    <span class="emoji">🗿</span>
+                    <span class="item">Großer<br>Stein</span>
+                </td>
+                <td>
+                    <span class="emoji">🌳</span>
+                    <span class="item">Birkenrinde</span>
+                </td>
+                <td>
+                    <span class="emoji">☘️</span>
+                    <span class="item">Kleeblatt</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="emoji">🌰</span>
+                    <span class="item">Kastanie</span>
+                </td>
+                <td>
+                    <span class="emoji">🐚</span>
+                    <span class="item">Schneckenhaus</span>
+                </td>
+                <td>
+                    <span class="emoji">🥌</span>
+                    <span class="item">Flacher<br>Kieselstein</span>
+                </td>
+                <td>
+                    <span class="emoji">🔴</span>
+                    <span class="item">Buchecker</span>
+                </td>
+                <td>
+                    <span class="emoji">🌲</span>
+                    <span class="item">Tannennadel</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
