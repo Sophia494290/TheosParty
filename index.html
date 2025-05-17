@@ -1071,7 +1071,36 @@
         </div>
     </div>
     
-    <script>
+    <!-- Firebase SDK einbinden -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    
+    <!-- Firebase SDK v9 einbinden -->
+    <script type="module">
+        // Firebase SDK importieren
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getDatabase, ref, set, onValue, remove, child, get } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics.js";
+        
+        // Firebase-Konfiguration
+        const firebaseConfig = {
+          apiKey: "AIzaSyCTXOwjJ82fCuVPD7hz-JCcozPWQpISE4Q",
+          authDomain: "gebparty-dadb9.firebaseapp.com",
+          projectId: "gebparty-dadb9",
+          storageBucket: "gebparty-dadb9.firebasestorage.app",
+          messagingSenderId: "745524935331",
+          appId: "1:745524935331:web:901a44728eeab222b05d16",
+          measurementId: "G-G0CNFGRN5Y",
+          databaseURL: "https://gebparty-dadb9-default-rtdb.europe-west1.firebasedatabase.app"
+        };
+        
+        // Firebase initialisieren
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const database = getDatabase(app);
+        
+        // Eindeutige ID für diese Geburtstagsfeier
+        const eventId = "theos-7-geburtstag";
         // Modal-Funktionen
         function openGameModal(gameId) {
             document.getElementById(gameId + 'Modal').style.display = 'block';
@@ -1107,10 +1136,68 @@
             });
         });
         
-        // Checkbox-Funktionalität für Materialien
-        document.addEventListener('DOMContentLoaded', function() {
-            const checkboxes = document.querySelectorAll('.material-checkbox');
+        // Variablen für DOM-Elemente
+        let checkboxes, kidCheckboxes, statusMessage, resetButton;
+        
+        // Referenzen zu Firebase
+        const materialsRef = ref(database, `${eventId}/materials`);
+        const kidsRef = ref(database, `${eventId}/kids`);
+        const connectedRef = ref(database, '.info/connected');
+        
+        // Checkbox-Funktionalität für Materialien mit Firebase
+        function setupMaterialCheckboxes() {
+            checkboxes = document.querySelectorAll('.material-checkbox');
             
+            // Status-Anzeige hinzufügen
+            const container = document.querySelector('.container');
+            statusMessage = document.createElement('div');
+            statusMessage.style.textAlign = 'center';
+            statusMessage.style.margin = '10px auto';
+            statusMessage.style.padding = '8px';
+            statusMessage.style.borderRadius = '4px';
+            statusMessage.style.backgroundColor = '#e6f7ff';
+            statusMessage.style.color = '#1e90ff';
+            statusMessage.style.fontSize = '14px';
+            statusMessage.style.maxWidth = '400px';
+            statusMessage.innerHTML = '<i class="fas fa-sync fa-spin"></i> Verbinde mit Server...';
+            container.insertBefore(statusMessage, container.firstChild);
+            
+            // Verbindungsstatus anzeigen
+            onValue(connectedRef, (snap) => {
+                if (snap.val() === true) {
+                    statusMessage.innerHTML = '<i class="fas fa-check-circle"></i> Daten werden automatisch mit anderen Geräten synchronisiert';
+                    setTimeout(() => {
+                        statusMessage.style.opacity = '0.7';
+                    }, 3000);
+                } else {
+                    statusMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Keine Verbindung zum Server - Änderungen werden nicht synchronisiert';
+                    statusMessage.style.backgroundColor = '#fff3cd';
+                    statusMessage.style.color = '#856404';
+                    statusMessage.style.opacity = '1';
+                }
+            });
+            
+            // Auf Änderungen in der Datenbank reagieren
+            onValue(materialsRef, (snapshot) => {
+                const data = snapshot.val() || {};
+                
+                // Alle Checkboxen aktualisieren
+                checkboxes.forEach(checkbox => {
+                    const isChecked = data[checkbox.id] === true;
+                    checkbox.checked = isChecked;
+                    
+                    const listItem = checkbox.parentElement;
+                    if (isChecked) {
+                        listItem.style.textDecoration = 'line-through';
+                        listItem.style.opacity = '0.6';
+                    } else {
+                        listItem.style.textDecoration = 'none';
+                        listItem.style.opacity = '1';
+                    }
+                });
+            });
+            
+            // Event-Listener für Checkbox-Änderungen
             checkboxes.forEach(checkbox => {
                 checkbox.addEventListener('change', function() {
                     const listItem = this.parentElement;
@@ -1122,18 +1209,127 @@
                         listItem.style.opacity = '1';
                     }
                     
-                    // Speichern des Status in localStorage
-                    localStorage.setItem('material-' + this.id, this.checked);
+                    // In Firebase speichern
+                    set(child(materialsRef, this.id), this.checked);
                 });
+            });
+        }
+        
+        // Initialisierung beim Laden der Seite
+        document.addEventListener('DOMContentLoaded', setupMaterialCheckboxes);
+        
+        // Checkbox-Funktionalität für Kinderliste mit Firebase
+        function setupKidCheckboxes() {
+            kidCheckboxes = document.querySelectorAll('.kid-checkbox input');
+            
+            // Auf Änderungen in der Datenbank reagieren
+            onValue(kidsRef, (snapshot) => {
+                const data = snapshot.val() || {};
                 
-                // Status aus localStorage laden
-                const savedStatus = localStorage.getItem('material-' + checkbox.id);
-                if (savedStatus === 'true') {
-                    checkbox.checked = true;
-                    const listItem = checkbox.parentElement;
-                    listItem.style.textDecoration = 'line-through';
-                    listItem.style.opacity = '0.6';
+                // Alle Checkboxen aktualisieren
+                kidCheckboxes.forEach(checkbox => {
+                    const isChecked = data[checkbox.id] === true;
+                    checkbox.checked = isChecked;
+                    
+                    const kidCard = checkbox.closest('.kid-card');
+                    if (isChecked) {
+                        kidCard.style.backgroundColor = 'rgba(143, 188, 143, 0.2)';
+                        kidCard.style.opacity = '0.8';
+                    } else {
+                        kidCard.style.backgroundColor = '';
+                        kidCard.style.opacity = '1';
+                    }
+                });
+            });
+            
+            // Event-Listener für Checkbox-Änderungen
+            kidCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const kidCard = this.closest('.kid-card');
+                    if (this.checked) {
+                        kidCard.style.backgroundColor = 'rgba(143, 188, 143, 0.2)';
+                        kidCard.style.opacity = '0.8';
+                    } else {
+                        kidCard.style.backgroundColor = '';
+                        kidCard.style.opacity = '1';
+                    }
+                    
+                    // In Firebase speichern
+                    set(child(kidsRef, this.id), this.checked);
+                });
+            });
+        }
+        
+        // Initialisierung beim Laden der Seite
+        document.addEventListener('DOMContentLoaded', setupKidCheckboxes);
+        
+        // Reset-Button hinzufügen
+        function setupResetButton() {
+            resetButton = document.createElement('button');
+            resetButton.innerHTML = '<i class="fas fa-trash"></i> Alle Daten zurücksetzen';
+            resetButton.style.display = 'block';
+            resetButton.style.margin = '20px auto';
+            resetButton.style.padding = '10px 20px';
+            resetButton.style.backgroundColor = '#dc3545';
+            resetButton.style.color = 'white';
+            resetButton.style.border = 'none';
+            resetButton.style.borderRadius = '4px';
+            resetButton.style.cursor = 'pointer';
+            
+            resetButton.onclick = function() {
+                if (confirm('Möchtest du wirklich alle gespeicherten Daten zurücksetzen? Diese Aktion betrifft alle verbundenen Geräte.')) {
+                    // Alle Daten in Firebase zurücksetzen
+                    const eventRef = ref(database, eventId);
+                    remove(eventRef)
+                        .then(() => {
+                            alert('Alle Daten wurden zurückgesetzt.');
+                            location.reload();
+                        })
+                        .catch(error => {
+                            alert('Fehler beim Zurücksetzen: ' + error.message);
+                        });
                 }
+            };
+            
+            // Button am Ende der Seite einfügen
+            document.querySelector('.container').appendChild(resetButton);
+        }
+        
+        // Initialisierung beim Laden der Seite
+        document.addEventListener('DOMContentLoaded', setupResetButton);
+        
+        // Modal-Funktionen
+        function openGameModal(gameId) {
+            document.getElementById(gameId + 'Modal').style.display = 'block';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // Schließen des Modals, wenn außerhalb geklickt wird
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+        
+        // Ein- und Ausklappen der Abschnitte
+        document.addEventListener('DOMContentLoaded', function() {
+            const sectionHeaders = document.querySelectorAll('.section-header');
+            
+            // Alle Abschnitte außer "Organisatorisches" einklappen
+            document.querySelectorAll('.section').forEach(section => {
+                if (section.id !== 'organisatorisches') {
+                    section.classList.add('collapsed');
+                }
+            });
+            
+            sectionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const section = this.parentElement;
+                    section.classList.toggle('collapsed');
+                });
             });
         });
     </script>

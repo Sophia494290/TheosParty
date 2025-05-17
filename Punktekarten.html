@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Punktekarten für Theos Geburtstagsfeier</title>
+    <title>Punktekarte für Theos Geburtstagsfeier</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
@@ -153,20 +153,153 @@
         .green-instructions {
             background-color: #e6fff7;
         }
+        /* Mobile Optimierungen */
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 10px;
+                margin-bottom: 20px;
+            }
+            h1 {
+                font-size: 22px;
+                margin-bottom: 20px;
+            }
+            .team-title {
+                font-size: 20px;
+                padding: 8px;
+            }
+            table {
+                font-size: 14px;
+            }
+            th, td {
+                padding: 8px 6px;
+            }
+            .game-icon {
+                font-size: 20px;
+                width: 40px;
+            }
+            .checkbox-cell, .points-cell {
+                width: 60px;
+            }
+            .points-input {
+                width: 40px;
+                height: 28px;
+                font-size: 14px;
+            }
+            .instructions {
+                padding: 10px;
+                font-size: 13px;
+            }
+        }
+        
+        /* Für sehr kleine Bildschirme */
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+            .container {
+                padding: 8px;
+            }
+            h1 {
+                font-size: 20px;
+            }
+            .team-title {
+                font-size: 18px;
+                padding: 6px;
+            }
+            table {
+                font-size: 13px;
+            }
+            th, td {
+                padding: 6px 4px;
+            }
+            .game-icon {
+                font-size: 18px;
+                width: 30px;
+            }
+            .game-name {
+                max-width: 120px;
+                word-break: break-word;
+            }
+            .checkbox-cell, .points-cell {
+                width: 50px;
+            }
+            .points-input {
+                width: 36px;
+                height: 26px;
+                font-size: 13px;
+            }
+            .instructions {
+                padding: 8px;
+                font-size: 12px;
+            }
+        }
+        
+        /* Druckansicht Optimierungen */
         @media print {
             body {
                 background-color: white;
+                margin: 0;
+                padding: 0;
+            }
+            .print-button {
+                display: none;
             }
             .container {
                 box-shadow: none;
                 max-width: 100%;
+                margin: 0;
+                padding: 10px;
+                page-break-after: always;
+            }
+            h1 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            .team-title {
+                font-size: 22px;
+            }
+            table {
+                font-size: 14px;
+                page-break-inside: avoid;
+            }
+            th, td {
+                padding: 8px;
+            }
+            .instructions {
+                font-size: 12px;
+            }
+            /* Verhindert Seitenumbrüche innerhalb von Tabellen */
+            tr {
+                page-break-inside: avoid;
+            }
+            /* Skalierung für bessere Druckanpassung */
+            @page {
+                size: A4;
+                margin: 1cm;
+            }
+            /* Stil für den Seitenumbruch */
+            .page-break {
+                display: none;
+            }
+        }
+        
+        /* Stil für den Seitenumbruch im Druck */
+        @media print {
+            .page-break {
+                display: block;
+                page-break-before: always;
+                height: 0;
+                clear: both;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Punktekarten für Theos Geburtstagsfeier</h1>
+        <h1>Punktekarte für Theos Geburtstagsfeier</h1>
         
         <button class="print-button" onclick="window.print()"><i class="fas fa-print"></i>Drucken</button>
         
@@ -244,7 +377,11 @@
         </table>
     </div>
     
+    <!-- Seitenumbruch für Druck -->
+    <div class="page-break"></div>
+    
     <div class="container">
+        <h1 style="color: #2e8b57;">Punktekarten für Theos Geburtstagsfeier</h1>
         <div class="team-title green">🐸 Team Grüne Frösche 🐸</div>
         
         <div class="instructions green-instructions">
@@ -317,43 +454,229 @@
                 <td colspan="2" style="text-align: center;"><span id="green-total-points">0</span></td>
             </tr>
         </table>
-        
-        <div class="instructions" style="background-color: #f5f5f5;">
-            <p><strong>Hinweis:</strong> Beide Teams sind Gewinner! Die Punktzahl dient nur zur Motivation während der Spiele.</p>
-        </div>
     </div>
     
-    <script>
-        // Berechnung der Gesamtpunktzahl für Team Blaue Quallen
-        const blueInputs = document.querySelectorAll('.blue-input');
-        const blueTotalPoints = document.getElementById('blue-total-points');
+    <!-- Firebase SDK v9 einbinden -->
+    <script type="module">
+        // Firebase SDK importieren
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getDatabase, ref, set, onValue, remove, child } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics.js";
         
-        blueInputs.forEach(input => {
-            input.addEventListener('change', calculateBlueTotal);
+        // Firebase-Konfiguration
+        const firebaseConfig = {
+          apiKey: "AIzaSyCTXOwjJ82fCuVPD7hz-JCcozPWQpISE4Q",
+          authDomain: "gebparty-dadb9.firebaseapp.com",
+          projectId: "gebparty-dadb9",
+          storageBucket: "gebparty-dadb9.firebasestorage.app",
+          messagingSenderId: "745524935331",
+          appId: "1:745524935331:web:901a44728eeab222b05d16",
+          measurementId: "G-G0CNFGRN5Y",
+          databaseURL: "https://gebparty-dadb9-default-rtdb.europe-west1.firebasedatabase.app"
+        };
+        
+        // Firebase initialisieren
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const database = getDatabase(app);
+        
+        // Eindeutige ID für diese Geburtstagsfeier
+        const eventId = "theos-7-geburtstag";
+        
+        // DOM-Elemente
+        let blueInputs, blueTotalPoints, blueCheckboxes;
+        let greenInputs, greenTotalPoints, greenCheckboxes;
+        let allCheckboxes, allInputs;
+        let statusMessage, printButton, resetButton;
+        
+        // Referenzen zu Firebase
+        const checkboxesRef = ref(database, `${eventId}/punktekarten/checkboxes`);
+        const inputsRef = ref(database, `${eventId}/punktekarten/inputs`);
+        const totalsRef = ref(database, `${eventId}/punktekarten/totals`);
+        const connectedRef = ref(database, '.info/connected');
+        
+        // DOM-Elemente initialisieren und Status-Anzeige hinzufügen
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM-Elemente initialisieren
+            blueInputs = document.querySelectorAll('.blue-input');
+            blueTotalPoints = document.getElementById('blue-total-points');
+            blueCheckboxes = document.querySelectorAll('.blue-table .checkbox');
+            
+            greenInputs = document.querySelectorAll('.green-input');
+            greenTotalPoints = document.getElementById('green-total-points');
+            greenCheckboxes = document.querySelectorAll('.green-table .checkbox');
+            
+            allCheckboxes = document.querySelectorAll('.checkbox');
+            allInputs = document.querySelectorAll('.points-input');
+            
+            printButton = document.querySelector('.print-button');
+            
+            // Status-Anzeige erstellen
+            statusMessage = document.createElement('div');
+            statusMessage.style.textAlign = 'center';
+            statusMessage.style.margin = '10px 0';
+            statusMessage.style.padding = '5px';
+            statusMessage.style.borderRadius = '4px';
+            statusMessage.style.backgroundColor = '#e6f7ff';
+            statusMessage.style.color = '#1e90ff';
+            statusMessage.style.fontSize = '14px';
+            statusMessage.innerHTML = '<i class="fas fa-sync fa-spin"></i> Verbinde mit Server...';
+            statusMessage.className = 'print-button'; // Nutze die gleiche Klasse, die im Druck ausgeblendet wird
+            printButton.parentNode.insertBefore(statusMessage, printButton);
+            
+            // Verbindungsstatus anzeigen
+            onValue(connectedRef, (snap) => {
+                if (snap.val() === true) {
+                    statusMessage.innerHTML = '<i class="fas fa-check-circle"></i> Daten werden automatisch mit anderen Geräten synchronisiert';
+                    setTimeout(() => {
+                        statusMessage.style.opacity = '0.7';
+                    }, 3000);
+                } else {
+                    statusMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Keine Verbindung zum Server - Änderungen werden nicht synchronisiert';
+                    statusMessage.style.backgroundColor = '#fff3cd';
+                    statusMessage.style.color = '#856404';
+                    statusMessage.style.opacity = '1';
+                }
+            });
+            
+            // Event-Listener für Checkboxen
+            setupCheckboxListeners();
+            
+            // Event-Listener für Punkteeingaben
+            setupInputListeners();
+            
+            // Zurücksetzen-Button hinzufügen
+            setupResetButton();
         });
         
+        // Berechnung der Gesamtpunktzahl für Team Blaue Quallen
         function calculateBlueTotal() {
             let total = 0;
             blueInputs.forEach(input => {
                 total += parseInt(input.value) || 0;
             });
             blueTotalPoints.textContent = total;
+            
+            // Gesamtpunktzahl in Firebase speichern
+            set(child(totalsRef, 'blue'), total);
+            return total;
         }
         
         // Berechnung der Gesamtpunktzahl für Team Frösche
-        const greenInputs = document.querySelectorAll('.green-input');
-        const greenTotalPoints = document.getElementById('green-total-points');
-        
-        greenInputs.forEach(input => {
-            input.addEventListener('change', calculateGreenTotal);
-        });
-        
         function calculateGreenTotal() {
             let total = 0;
             greenInputs.forEach(input => {
                 total += parseInt(input.value) || 0;
             });
             greenTotalPoints.textContent = total;
+            
+            // Gesamtpunktzahl in Firebase speichern
+            set(child(totalsRef, 'green'), total);
+            return total;
+        }
+        
+        // Datenbank-Listener einrichten
+        function setupDatabaseListeners() {
+            // Auf Änderungen in der Datenbank reagieren - Checkboxen
+            onValue(checkboxesRef, (snapshot) => {
+                const data = snapshot.val() || {};
+                
+                allCheckboxes.forEach((checkbox, index) => {
+                    const key = `checkbox_${index}`;
+                    if (data[key] !== undefined) {
+                        checkbox.checked = data[key];
+                    }
+                });
+            });
+            
+            // Auf Änderungen in der Datenbank reagieren - Inputs
+            onValue(inputsRef, (snapshot) => {
+                const data = snapshot.val() || {};
+                
+                allInputs.forEach((input, index) => {
+                    const key = `input_${index}`;
+                    if (data[key] !== undefined) {
+                        input.value = data[key];
+                    }
+                });
+                
+                // Gesamtpunktzahlen neu berechnen
+                calculateBlueTotal();
+                calculateGreenTotal();
+            });
+            
+            // Auf Änderungen in der Datenbank reagieren - Totals
+            onValue(totalsRef, (snapshot) => {
+                const data = snapshot.val() || {};
+                
+                if (data.blue !== undefined) {
+                    blueTotalPoints.textContent = data.blue;
+                }
+                
+                if (data.green !== undefined) {
+                    greenTotalPoints.textContent = data.green;
+                }
+            });
+        }
+        
+        // Datenbank-Listener beim Laden der Seite einrichten
+        document.addEventListener('DOMContentLoaded', setupDatabaseListeners);
+        
+        // Event-Listener für Checkboxen einrichten
+        function setupCheckboxListeners() {
+            allCheckboxes.forEach((checkbox, index) => {
+                checkbox.addEventListener('change', () => {
+                    set(child(checkboxesRef, `checkbox_${index}`), checkbox.checked);
+                });
+            });
+        }
+        
+        // Event-Listener für Punkteeingaben einrichten
+        function setupInputListeners() {
+            blueInputs.forEach((input) => {
+                input.addEventListener('change', () => {
+                    const blueIndex = Array.from(blueInputs).indexOf(input);
+                    set(child(inputsRef, `input_${blueIndex}`), input.value);
+                    calculateBlueTotal();
+                });
+            });
+            
+            greenInputs.forEach((input) => {
+                input.addEventListener('change', () => {
+                    const greenIndex = Array.from(greenInputs).indexOf(input) + blueInputs.length;
+                    set(child(inputsRef, `input_${greenIndex}`), input.value);
+                    calculateGreenTotal();
+                });
+            });
+        }
+        
+        // Zurücksetzen-Button hinzufügen
+        function setupResetButton() {
+            resetButton = document.createElement('button');
+            resetButton.className = 'print-button';
+            resetButton.style.backgroundColor = '#dc3545';
+            resetButton.style.marginTop = '20px';
+            resetButton.innerHTML = '<i class="fas fa-trash"></i>Daten zurücksetzen';
+            resetButton.onclick = function() {
+                if (confirm('Möchtest du wirklich alle gespeicherten Daten zurücksetzen? Diese Aktion betrifft alle verbundenen Geräte.')) {
+                    // Alle Daten in Firebase zurücksetzen
+                    const punktekartenRef = ref(database, `${eventId}/punktekarten`);
+                    remove(punktekartenRef)
+                        .then(() => {
+                            allCheckboxes.forEach(checkbox => checkbox.checked = false);
+                            allInputs.forEach(input => input.value = '');
+                            calculateBlueTotal();
+                            calculateGreenTotal();
+                            alert('Alle Daten wurden zurückgesetzt.');
+                        })
+                        .catch(error => {
+                            alert('Fehler beim Zurücksetzen: ' + error.message);
+                        });
+                }
+            };
+            
+            // Füge den Reset-Button nach dem Drucken-Button ein
+            printButton.parentNode.insertBefore(resetButton, printButton.nextSibling);
         }
     </script>
 </body>
