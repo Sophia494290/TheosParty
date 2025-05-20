@@ -1069,6 +1069,18 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Footer mit Waldbild -->
+        <div id="footer" class="section">
+            <div style="margin-top: 40px; border-top: 1px solid rgba(143, 188, 143, 0.3); padding-top: 20px; text-align: center;">
+                <img src="https://images.unsplash.com/photo-1503435980610-a51f3ddfee50?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                     alt="Waldlandschaft"
+                     style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <p style="margin-top: 15px; font-size: 14px; color: var(--wood-brown); font-style: italic;">
+                    "Die schönsten Abenteuer erlebt man im Wald" - Theos 7. Geburtstag
+                </p>
+            </div>
+        </div>
     </div>
     
     <!-- Firebase SDK einbinden -->
@@ -1076,31 +1088,8 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     
     <!-- Firebase SDK v9 einbinden -->
-    <script type="module">
-        // Firebase SDK importieren
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getDatabase, ref, set, onValue, remove, child, get } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics.js";
-        
-        // Firebase-Konfiguration
-        const firebaseConfig = {
-          apiKey: "AIzaSyCTXOwjJ82fCuVPD7hz-JCcozPWQpISE4Q",
-          authDomain: "gebparty-dadb9.firebaseapp.com",
-          projectId: "gebparty-dadb9",
-          storageBucket: "gebparty-dadb9.firebasestorage.app",
-          messagingSenderId: "745524935331",
-          appId: "1:745524935331:web:901a44728eeab222b05d16",
-          measurementId: "G-G0CNFGRN5Y",
-          databaseURL: "https://gebparty-dadb9-default-rtdb.europe-west1.firebasedatabase.app"
-        };
-        
-        // Firebase initialisieren
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const database = getDatabase(app);
-        
-        // Eindeutige ID für diese Geburtstagsfeier
-        const eventId = "theos-7-geburtstag";
+    <!-- Modal-Funktionen global definieren -->
+    <script>
         // Modal-Funktionen
         function openGameModal(gameId) {
             document.getElementById(gameId + 'Modal').style.display = 'block';
@@ -1135,6 +1124,33 @@
                 });
             });
         });
+    </script>
+    
+    <script type="module">
+        // Firebase SDK importieren
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getDatabase, ref, set, onValue, remove, child, get } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics.js";
+        
+        // Firebase-Konfiguration
+        const firebaseConfig = {
+          apiKey: "AIzaSyCTXOwjJ82fCuVPD7hz-JCcozPWQpISE4Q",
+          authDomain: "gebparty-dadb9.firebaseapp.com",
+          projectId: "gebparty-dadb9",
+          storageBucket: "gebparty-dadb9.firebasestorage.app",
+          messagingSenderId: "745524935331",
+          appId: "1:745524935331:web:901a44728eeab222b05d16",
+          measurementId: "G-G0CNFGRN5Y",
+          databaseURL: "https://gebparty-dadb9-default-rtdb.europe-west1.firebasedatabase.app"
+        };
+        
+        // Firebase initialisieren
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const database = getDatabase(app);
+        
+        // Eindeutige ID für diese Geburtstagsfeier
+        const eventId = "theos-7-geburtstag";
         
         // Variablen für DOM-Elemente
         let checkboxes, kidCheckboxes, statusMessage, resetButton;
@@ -1298,40 +1314,7 @@
         // Initialisierung beim Laden der Seite
         document.addEventListener('DOMContentLoaded', setupResetButton);
         
-        // Modal-Funktionen
-        function openGameModal(gameId) {
-            document.getElementById(gameId + 'Modal').style.display = 'block';
-        }
-        
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-        
-        // Schließen des Modals, wenn außerhalb geklickt wird
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = 'none';
-            }
-        }
-        
-        // Ein- und Ausklappen der Abschnitte
-        document.addEventListener('DOMContentLoaded', function() {
-            const sectionHeaders = document.querySelectorAll('.section-header');
-            
-            // Alle Abschnitte außer "Organisatorisches" einklappen
-            document.querySelectorAll('.section').forEach(section => {
-                if (section.id !== 'organisatorisches') {
-                    section.classList.add('collapsed');
-                }
-            });
-            
-            sectionHeaders.forEach(header => {
-                header.addEventListener('click', function() {
-                    const section = this.parentElement;
-                    section.classList.toggle('collapsed');
-                });
-            });
-        });
+        // Keine doppelte Definition der Modal-Funktionen und Ein-/Ausklapp-Funktionen hier
     </script>
 </body>
 </html>
